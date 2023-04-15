@@ -10,12 +10,14 @@ import {
   Controller,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { uploadRequestDto } from './dto/upload.request.dto';
 import { uploadResponseDto } from './dto/upload.response.dto';
+import { BasicAuthGuard } from 'src/guards/basic-auth.guard';
 
 @ApiTags('Files')
 @ApiBearerAuth()
@@ -24,6 +26,7 @@ export class FilesController {
   constructor(private filesService: FilesService) {}
 
   @Post('/upload')
+  @UseGuards(BasicAuthGuard)
   @ApiOperation({
     summary: 'Загрузка каталога в формате .xls',
   })

@@ -5,7 +5,7 @@ export class RefreshUserDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  login: string;
+  email: string;
 
   @ApiProperty()
   @IsNotEmpty()

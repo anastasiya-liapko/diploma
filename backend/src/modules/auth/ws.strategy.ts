@@ -20,6 +20,6 @@ export class WsStrategy extends PassportStrategy(Strategy, 'WsStrategy') {
   }
 
   async validate(payload: any) {
-    return { id: payload._id, login: payload.login, name: payload.name };
+    return { id: payload._id, email: payload.email, name: payload.name };
   }
 }
