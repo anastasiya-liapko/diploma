@@ -1,0 +1,18 @@
+.DS_Store
+.thumbs.db
+node_modules
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+backend/dist
+dist
+/backend/dist/
+/dist/
+/frontend/dist
+/backend/uploads/
