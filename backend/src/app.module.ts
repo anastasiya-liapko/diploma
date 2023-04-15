@@ -13,12 +13,18 @@ import { JwtStrategy } from './modules/auth/jwt.strategy';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { WsStrategy } from './modules/auth/ws.strategy';
 import { ConfigModule } from '@nestjs/config';
+import { GoodsModule } from './modules/goods/goods.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { ManufacturersModule } from './modules/manufacturers/manufacturers.module';
 
 @Module({
   imports: [
     // UserModule,
     // AuthModule,
     FilesModule,
+    GoodsModule,
+    CategoriesModule,
+    ManufacturersModule,
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/online-store', {
       useNewUrlParser: true,
       useUnifiedTopology: true,

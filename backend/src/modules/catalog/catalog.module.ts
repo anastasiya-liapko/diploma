@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { CatalogController } from './catalog.controller';
+import { CatalogService } from './catalog.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { FilesController } from './files.controller';
-import { FilesService } from './files.service';
 import { GoodSchema } from '../goods/schema/good.schema';
 import { CategorySchema } from '../categories/schema/category.schema';
 import { ManufacturerSchema } from '../manufacturers/schema/manufacturer.schema';
@@ -14,8 +14,7 @@ import { ManufacturerSchema } from '../manufacturers/schema/manufacturer.schema'
       { name: 'Manufacturer', schema: ManufacturerSchema },
     ]),
   ],
-  controllers: [FilesController],
-  providers: [FilesService],
-  exports: [FilesService],
+  controllers: [CatalogController],
+  providers: [CatalogService],
 })
-export class FilesModule {}
+export class CatalogModule {}

@@ -8,8 +8,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
   const options = new DocumentBuilder()
-    .setTitle('ONLINE STORE OF BUILDING MATERIALS')
-    .setDescription('API')
+    .setTitle('API')
+    .setDescription('ONLINE STORE OF BUILDING MATERIALS')
     .setVersion('0.1')
     .addBearerAuth()
     .build();
