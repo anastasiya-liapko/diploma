@@ -1,7 +1,6 @@
 import * as mongoose from 'mongoose';
 
 export const CartSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   goods: [
     {
       _id: false,

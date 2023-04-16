@@ -25,9 +25,9 @@ export class UserService {
     const newUser = new this.userModel({ ...dto, password: hash });
 
     try {
-      return await newUser.save({});
+      return await newUser.save();
     } catch (err) {
-      throw new BadRequestException(err);
+      throw new BadRequestException(err.message);
     }
   }
 

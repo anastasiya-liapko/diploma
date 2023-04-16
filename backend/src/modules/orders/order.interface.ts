@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 
-export enum OrderStatus {
+export enum EOrderStatus {
   NEW = 'new',
   APPROVED = 'approved',
   READY = 'ready',
@@ -16,5 +16,5 @@ export interface Order extends Document {
   ];
   user_id: mongoose.Schema.Types.ObjectId;
   address_id: mongoose.Schema.Types.ObjectId;
-  status: OrderStatus;
+  status: EOrderStatus;
 }

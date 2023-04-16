@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
+import { EOrderStatus } from '../order.interface';
 
 export const OrderSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   goods: [
     {
       _id: false,
@@ -20,5 +20,8 @@ export const OrderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Address',
   },
-  status: String,
+  status: {
+    type: String,
+    default: EOrderStatus.NEW,
+  },
 });
