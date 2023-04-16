@@ -10,7 +10,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema } from 'mongoose';
 import { User } from './user.interface';
 import { RefreshUserRequestDto } from '../auth/dto/refreshUser.request.dto';
-import crypto from 'crypto';
+const crypto = require('crypto');
 import { AuthUserRequestDto } from '../auth/dto/authUser.request.dto';
 
 @Injectable()
