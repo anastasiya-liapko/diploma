@@ -16,6 +16,9 @@ import { ConfigModule } from '@nestjs/config';
 import { GoodsModule } from './modules/goods/goods.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ManufacturersModule } from './modules/manufacturers/manufacturers.module';
+import { AddressesModule } from './modules/addresses/addresses.module';
+import { CartModule } from './modules/cart/cart.module';
+import { OrdersModule } from './modules/orders/orders.module';
 
 @Module({
   imports: [
@@ -25,6 +28,9 @@ import { ManufacturersModule } from './modules/manufacturers/manufacturers.modul
     GoodsModule,
     CategoriesModule,
     ManufacturersModule,
+    AddressesModule,
+    CartModule,
+    OrdersModule,
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/online-store', {
       useNewUrlParser: true,
       useUnifiedTopology: true,

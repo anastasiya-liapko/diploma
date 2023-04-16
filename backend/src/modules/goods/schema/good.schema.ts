@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 
 export const GoodSchema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
   id: Number,
   title: String,
   description: String,
