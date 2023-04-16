@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { RefreshUserDto } from './dto/refresh-user.dto';
-import { AuthUserDto } from './dto/auth-user.dto';
+import { RefreshUserRequestDto } from './dto/refreshUser.request.dto';
+import { AuthUserRequestDto } from './dto/authUser.request.dto';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +21,7 @@ export class AuthService {
   //   return this.jwtService.verify(token);
   // }
 
-  public async register(dto: AuthUserDto) {
+  public async register(dto: AuthUserRequestDto) {
     const user = await this.userService.createUser(dto);
 
     return this.login(user);
@@ -46,11 +46,11 @@ export class AuthService {
     };
   }
 
-  public async logout(user: any) {
+  public async logout(user: any): Promise<boolean> {
     return await this.userService.removeRefresh(user.email);
   }
 
-  public async refresh(dto: RefreshUserDto) {
+  public async refresh(dto: RefreshUserRequestDto) {
     const user = await this.userService.checkRefresh(dto);
     if (user) {
       return await this.login(user);

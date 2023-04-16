@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 import { Good } from '../goods/good.interface';
 import { Category } from '../categories/category.interface';
 import { Manufacturer } from '../manufacturers/manufacturer.interface';
-import { uploadResponseDto } from './dto/upload.response.dto';
+import { UploadResponseDto } from './dto/upload.response.dto';
 const XLSX = require('xlsx');
 const path = require('path');
 
@@ -19,7 +19,7 @@ export class FilesService {
     private readonly manufacturerModel: Model<Manufacturer>,
   ) {}
 
-  async upload(file: Express.Multer.File): Promise<uploadResponseDto> {
+  async upload(file: Express.Multer.File): Promise<UploadResponseDto> {
     const json: any[] = this.getJson(file);
     const data: {
       goods: Good[];

@@ -9,10 +9,9 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema } from 'mongoose';
 import { User } from './user.interface';
-import { RefreshUserDto } from '../auth/dto/refresh-user.dto';
-import { ErrorDto } from '../../global-dto/error.dto';
+import { RefreshUserRequestDto } from '../auth/dto/refreshUser.request.dto';
 import crypto from 'crypto';
-import { AuthUserDto } from '../auth/dto/auth-user.dto';
+import { AuthUserRequestDto } from '../auth/dto/authUser.request.dto';
 
 @Injectable()
 export class UserService {
@@ -20,7 +19,7 @@ export class UserService {
     @InjectModel('User') private readonly userModel: Model<User>, // @InjectModel('Club') private readonly clubModel: Model<Club>, // @Inject(forwardRef(() => RemoteService)) // private readonly remoteService: RemoteService,
   ) {}
 
-  public async createUser(dto: AuthUserDto): Promise<User> {
+  public async createUser(dto: AuthUserRequestDto): Promise<User> {
     const hash = UserService.wrapPassword(dto.password);
 
     const newUser = new this.userModel({ ...dto, password: hash });
@@ -53,7 +52,7 @@ export class UserService {
     }
   }
 
-  public async checkRefresh(dto: RefreshUserDto): Promise<User> {
+  public async checkRefresh(dto: RefreshUserRequestDto): Promise<User> {
     return this.userModel.findOne({
       email: dto.email,
       refresh: dto.refreshToken,

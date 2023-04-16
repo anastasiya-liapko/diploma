@@ -7,11 +7,19 @@ import {
   Body,
   Response,
 } from '@nestjs/common';
-import { AuthUserDto } from './dto/auth-user.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthUserRequestDto } from './dto/authUser.request.dto';
+import { AuthUserResponseDto } from './dto/authUser.response.dto';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { LocalAuthGuard } from '../../guards/local-auth.guard';
 import { AuthService } from './auth.service';
-import { RefreshUserDto } from './dto/refresh-user.dto';
+import { RefreshUserRequestDto } from './dto/refreshUser.request.dto';
+import { RefreshUserResponseDto } from './dto/refreshUser.response.dto';
 import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 
 @ApiTags('Auth')
@@ -20,7 +28,20 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  async register(@Request() req, @Body() dto: AuthUserDto) {
+  @ApiOperation({
+    summary: 'Регистрация пользователя',
+  })
+  @ApiBody({
+    type: AuthUserRequestDto,
+  })
+  @ApiOkResponse({
+    description: 'Пользователь зарегистрирован',
+    type: AuthUserResponseDto,
+  })
+  async register(
+    @Request() req,
+    @Body() dto: AuthUserRequestDto,
+  ): Promise<AuthUserResponseDto> {
     try {
       return this.authService.register(dto);
     } catch (e) {
@@ -30,7 +51,21 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req, @Response() res, @Body() dto: AuthUserDto) {
+  @ApiOperation({
+    summary: 'Авторизация пользователя',
+  })
+  @ApiBody({
+    type: AuthUserRequestDto,
+  })
+  @ApiOkResponse({
+    description: 'Пользователь авторизован',
+    type: AuthUserResponseDto,
+  })
+  async login(
+    @Request() req,
+    @Response() res,
+    @Body() dto: AuthUserRequestDto,
+  ) {
     try {
       res.send(await this.authService.login(req.user));
     } catch (e) {
@@ -38,19 +73,42 @@ export class AuthController {
     }
   }
 
-  @Post('logout')
-  async logout(@Request() req, @Body() user: any) {
+  @Post('refresh')
+  @ApiOperation({
+    summary: 'Обновление токенов пользователя',
+  })
+  @ApiBody({
+    type: RefreshUserRequestDto,
+  })
+  @ApiOkResponse({
+    description: 'Токены пользоватея обновлены',
+    type: RefreshUserResponseDto,
+  })
+  async refresh(
+    @Request() req,
+    @Body() dto: RefreshUserRequestDto,
+  ): Promise<RefreshUserResponseDto> {
     try {
-      return this.authService.logout(user);
+      return await this.authService.refresh(dto);
     } catch (e) {
       throw e;
     }
   }
 
-  @Post('refresh')
-  async refresh(@Request() res, @Body() refreshUserDto: RefreshUserDto) {
+  @Post('logout')
+  @ApiOperation({
+    summary: 'Деавторизация пользователя',
+  })
+  @ApiBody({
+    type: RefreshUserRequestDto,
+  })
+  @ApiOkResponse({
+    description: 'Пользователь деавторизован',
+    type: Boolean,
+  })
+  async logout(@Request() req, @Body() dto: any): Promise<boolean> {
     try {
-      return this.authService.refresh(refreshUserDto);
+      return await this.authService.logout(dto);
     } catch (e) {
       throw e;
     }

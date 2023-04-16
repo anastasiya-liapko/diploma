@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class uploadResponseDto {
+export class UploadResponseDto {
   @ApiProperty()
   status: 'ok';
 }

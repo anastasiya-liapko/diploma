@@ -19,8 +19,8 @@ import { ManufacturersModule } from './modules/manufacturers/manufacturers.modul
 
 @Module({
   imports: [
-    // UserModule,
-    // AuthModule,
+    UserModule,
+    AuthModule,
     FilesModule,
     GoodsModule,
     CategoriesModule,

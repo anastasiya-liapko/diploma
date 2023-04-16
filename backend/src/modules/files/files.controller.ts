@@ -15,8 +15,8 @@ import {
 } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { uploadRequestDto } from './dto/upload.request.dto';
-import { uploadResponseDto } from './dto/upload.response.dto';
+import { UploadRequestDto } from './dto/upload.request.dto';
+import { UploadResponseDto } from './dto/upload.response.dto';
 import { BasicAuthGuard } from 'src/guards/basic-auth.guard';
 
 @ApiTags('Files')
@@ -31,12 +31,12 @@ export class FilesController {
     summary: 'Загрузка каталога в формате .xls',
   })
   @ApiBody({
-    type: uploadRequestDto,
+    type: UploadRequestDto,
   })
   @ApiConsumes('multipart/form-data')
   @ApiOkResponse({
     description: 'Каталог загружен',
-    type: uploadResponseDto,
+    type: UploadResponseDto,
   })
   @UseInterceptors(FileInterceptor('file'))
   async upload(@UploadedFile() file: Express.Multer.File) {
