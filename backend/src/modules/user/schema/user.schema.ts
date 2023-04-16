@@ -9,4 +9,10 @@ export const UserSchema = new mongoose.Schema({
   name: String,
   refresh: String,
   isAdmin: Boolean,
+  addresses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Address',
+    },
+  ],
 });
