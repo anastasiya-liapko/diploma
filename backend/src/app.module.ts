@@ -42,9 +42,9 @@ import { CatalogModule } from './modules/catalog/catalog.module';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '1h' },
     }),
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '../../frontend/dist'),
-    // }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../frontend/dist'),
+    }),
     MailerModule.forRootAsync({
       useFactory: () => ({
         transport: {
