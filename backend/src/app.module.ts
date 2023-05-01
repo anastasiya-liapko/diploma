@@ -19,6 +19,7 @@ import { ManufacturersModule } from './modules/manufacturers/manufacturers.modul
 import { AddressesModule } from './modules/addresses/addresses.module';
 import { CartModule } from './modules/cart/cart.module';
 import { OrdersModule } from './modules/orders/orders.module';
+import { CatalogModule } from './modules/catalog/catalog.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { OrdersModule } from './modules/orders/orders.module';
     AuthModule,
     FilesModule,
     GoodsModule,
+    CatalogModule,
     CategoriesModule,
     ManufacturersModule,
     AddressesModule,
@@ -40,9 +42,9 @@ import { OrdersModule } from './modules/orders/orders.module';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '1h' },
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../frontend/dist'),
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '../../frontend/dist'),
+    // }),
     MailerModule.forRootAsync({
       useFactory: () => ({
         transport: {

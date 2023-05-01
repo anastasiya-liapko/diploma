@@ -98,7 +98,6 @@ export class FilesService {
     const manufacturers = [];
 
     for (const item of data) {
-      console.log(item);
       const good = {
         id: item.id,
         title: item.title,
@@ -121,7 +120,7 @@ export class FilesService {
       const manufacturer_id = new mongoose.Types.ObjectId();
       const manufacturer = {
         _id: manufacturer_id,
-        title: item.category,
+        title: item.manufacturer,
         description: '',
         imageLink: '',
         siteLink: '',

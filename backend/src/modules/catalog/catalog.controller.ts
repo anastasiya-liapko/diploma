@@ -1,12 +1,15 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Query, Request } from '@nestjs/common';
 import {
   ApiOperation,
   ApiTags,
   ApiBearerAuth,
   ApiOkResponse,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { CatalogService } from './catalog.service';
-import { getCatalogResponseDto } from './dto/get-catalog-response.dto';
+import { searchRequestDto } from './dto/search.request.dto';
+import { searchResponseDto } from './dto/search.response.dto';
+import { searchOneResponseDto } from './dto/searchOne.response.dto';
 
 @ApiTags('Catalog')
 @ApiBearerAuth()
@@ -14,20 +17,72 @@ import { getCatalogResponseDto } from './dto/get-catalog-response.dto';
 export class CatalogController {
   constructor(private catalogService: CatalogService) {}
 
-  //   @Get()
-  //   @ApiOperation({ summary: 'Получение каталога сертификатов' })
-  //   @ApiOkResponse({
-  //     description: 'Каталог сертификатов',
-  //     type: [getCatalogResponseDto],
-  //   })
-  //   async get() {
-  //     try {
-  //       return await this.catalogService.get();
-  //     } catch (e) {
-  //       Logger.error(
-  //         `GET CATALOG -- ERROR: ${e.response ? JSON.stringify(e.response) : e}`,
-  //       );
-  //       throw e;
-  //     }
-  //   }
+  @Get('/search')
+  @ApiOperation({ summary: 'Получение списка товаров' })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    description: 'Page you want to retrieve (0..N)',
+  })
+  @ApiQuery({
+    name: 'size',
+    required: false,
+    type: Number,
+    description: 'Number of records per page',
+  })
+  @ApiQuery({
+    name: 'sort',
+    required: false,
+    type: String,
+    description:
+      'Sorting criteria in the format: property(,asc|desc). Multiple' +
+      " sort criteria are not supported. Examples: 'name,ASC', 'name,DESC'",
+  })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    type: String,
+    description: 'Searching criteria in the string format',
+  })
+  @ApiOkResponse({
+    description: 'Список товаров',
+    type: searchResponseDto,
+  })
+  async search(@Request() req, @Query() dto: searchRequestDto) {
+    try {
+      return await this.catalogService.search(dto);
+    } catch (e) {
+      Logger.error(
+        `CATALOG SEARCH -- ERROR: ${
+          e.response ? JSON.stringify(e.response) : e
+        }`,
+      );
+      throw e;
+    }
+  }
+
+  @Get('/search/:id')
+  @ApiOperation({ summary: 'Получение товара по айди' })
+  @ApiQuery({
+    name: 'id',
+    required: true,
+    type: Number,
+  })
+  @ApiOkResponse({
+    description: 'Товар',
+    type: searchOneResponseDto,
+  })
+  async searchOne(@Request() req, @Param('id') id: number) {
+    try {
+      return await this.catalogService.searchOne(id);
+    } catch (e) {
+      Logger.error(
+        `CATALOG SEARCH ONE -- ERROR: ${
+          e.response ? JSON.stringify(e.response) : e
+        }`,
+      );
+      throw e;
+    }
+  }
 }
