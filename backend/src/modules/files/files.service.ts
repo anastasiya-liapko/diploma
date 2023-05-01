@@ -110,22 +110,33 @@ export class FilesService {
         manufacturer: null,
       };
 
-      const category_id = new mongoose.Types.ObjectId();
-      const category = {
-        _id: category_id,
-        title: item.category,
-      };
-      categories.push(category);
+      let category = categories.find(
+        (item) => category.title === item.category,
+      );
+      console.log(category);
+      if (!category) {
+        const category_id = new mongoose.Types.ObjectId();
+        category = {
+          _id: category_id,
+          title: item.category,
+        };
+        categories.push(category);
+      }
 
-      const manufacturer_id = new mongoose.Types.ObjectId();
-      const manufacturer = {
-        _id: manufacturer_id,
-        title: item.manufacturer,
-        description: '',
-        imageLink: '',
-        siteLink: '',
-      };
-      manufacturers.push(manufacturer);
+      let manufacturer = manufacturers.find(
+        (manufacturer) => manufacturer.title === item.manufacturer,
+      );
+      if (!manufacturer) {
+        const manufacturer_id = new mongoose.Types.ObjectId();
+        manufacturer = {
+          _id: manufacturer_id,
+          title: item.manufacturer,
+          description: '',
+          imageLink: '',
+          siteLink: '',
+        };
+        manufacturers.push(manufacturer);
+      }
 
       good.category = category._id;
       good.manufacturer = manufacturer._id;
