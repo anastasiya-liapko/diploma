@@ -49,7 +49,10 @@ export class CatalogController {
     description: 'Список товаров',
     type: searchResponseDto,
   })
-  async search(@Request() req, @Query() dto: searchRequestDto) {
+  async search(
+    @Request() req,
+    @Query() dto: searchRequestDto,
+  ): Promise<searchResponseDto> {
     try {
       return await this.catalogService.search(dto);
     } catch (e) {
@@ -73,7 +76,10 @@ export class CatalogController {
     description: 'Товар',
     type: searchOneResponseDto,
   })
-  async searchOne(@Request() req, @Param('id') id: number) {
+  async searchOne(
+    @Request() req,
+    @Param('id') id: number,
+  ): Promise<searchOneResponseDto> {
     try {
       return await this.catalogService.searchOne(id);
     } catch (e) {

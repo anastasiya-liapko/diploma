@@ -5,6 +5,8 @@ import { Manufacturer } from '../manufacturers/manufacturer.interface';
 import { Category } from '../categories/category.interface';
 import { Good } from '../goods/good.interface';
 import { searchRequestDto } from './dto/search.request.dto';
+import { searchOneResponseDto } from './dto/searchOne.response.dto';
+import { searchResponseDto } from './dto/search.response.dto';
 
 @Injectable()
 export class CatalogService {
@@ -16,7 +18,7 @@ export class CatalogService {
     private readonly manufacturerModel: Model<Manufacturer>,
   ) {}
 
-  async search(dto: searchRequestDto): Promise<any> {
+  async search(dto: searchRequestDto): Promise<searchResponseDto> {
     const { page, size, sort, search } = dto;
 
     const request = [];
@@ -110,7 +112,7 @@ export class CatalogService {
     };
   }
 
-  async searchOne(id: number): Promise<any> {
+  async searchOne(id: number): Promise<searchOneResponseDto> {
     return await this.goodModel
       .findOne({ id }, null, { lean: true })
       .populate('category manufacturer');
