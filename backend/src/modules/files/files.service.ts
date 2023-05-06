@@ -17,7 +17,7 @@ export class FilesService {
     private readonly categoryModel: Model<Category>,
     @InjectModel('Manufacturer')
     private readonly manufacturerModel: Model<Manufacturer>,
-  ) {}
+  ) { }
 
   async upload(file: Express.Multer.File): Promise<UploadResponseDto> {
     const json: any[] = this.getJson(file);
@@ -31,8 +31,7 @@ export class FilesService {
       await this.goodModel.collection.drop();
     } catch (e) {
       Logger.error(
-        `GOODS COLLECTION DROP -- ERROR: ${
-          e.response ? JSON.stringify(e.response) : e
+        `GOODS COLLECTION DROP -- ERROR: ${e.response ? JSON.stringify(e.response) : e
         }`,
       );
     }
@@ -43,8 +42,7 @@ export class FilesService {
       await this.categoryModel.collection.drop();
     } catch (e) {
       Logger.error(
-        `CATEGORY COLLECTION DROP -- ERROR: ${
-          e.response ? JSON.stringify(e.response) : e
+        `CATEGORY COLLECTION DROP -- ERROR: ${e.response ? JSON.stringify(e.response) : e
         }`,
       );
     }
@@ -54,8 +52,7 @@ export class FilesService {
       await this.manufacturerModel.collection.drop();
     } catch (e) {
       Logger.error(
-        `MANUFACTURER COLLECTION DROP -- ERROR: ${
-          e.response ? JSON.stringify(e.response) : e
+        `MANUFACTURER COLLECTION DROP -- ERROR: ${e.response ? JSON.stringify(e.response) : e
         }`,
       );
     }
@@ -110,10 +107,12 @@ export class FilesService {
         manufacturer: null,
       };
 
+      const found = goods.find((item) => item.id === good.id);
+      if (found || !good.price) continue;
+
       let category = categories.find(
-        (item) => category.title === item.category,
+        (category) => category.title === item.category,
       );
-      console.log(category);
       if (!category) {
         const category_id = new mongoose.Types.ObjectId();
         category = {

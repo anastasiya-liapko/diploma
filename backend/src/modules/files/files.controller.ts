@@ -38,7 +38,6 @@ export class FilesController {
     description: 'Каталог загружен',
     type: UploadResponseDto,
   })
-  // TODO: remove duplicated id and price 0 goods
   @UseInterceptors(FileInterceptor('file'))
   async upload(@UploadedFile() file: Express.Multer.File) {
     try {
