@@ -1,4 +1,12 @@
-import { Controller, Get, Logger, Param, Query, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Query,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiOperation,
   ApiTags,
@@ -10,12 +18,13 @@ import { CatalogService } from './catalog.service';
 import { searchRequestDto } from './dto/search.request.dto';
 import { searchResponseDto } from './dto/search.response.dto';
 import { searchOneResponseDto } from './dto/searchOne.response.dto';
+import { BasicAuthGuard } from 'src/guards/basic-auth.guard';
 
 @ApiTags('Catalog')
 @ApiBearerAuth()
 @Controller('catalog')
 export class CatalogController {
-  constructor(private catalogService: CatalogService) {}
+  constructor(private catalogService: CatalogService) { }
 
   @Get('/search')
   @ApiOperation({ summary: 'Получение списка товаров' })
@@ -49,6 +58,7 @@ export class CatalogController {
     description: 'Список товаров',
     type: searchResponseDto,
   })
+  @UseGuards(BasicAuthGuard)
   async search(
     @Request() req,
     @Query() dto: searchRequestDto,
@@ -57,8 +67,7 @@ export class CatalogController {
       return await this.catalogService.search(dto);
     } catch (e) {
       Logger.error(
-        `CATALOG SEARCH -- ERROR: ${
-          e.response ? JSON.stringify(e.response) : e
+        `CATALOG SEARCH -- ERROR: ${e.response ? JSON.stringify(e.response) : e
         }`,
       );
       throw e;
@@ -76,6 +85,7 @@ export class CatalogController {
     description: 'Товар',
     type: searchOneResponseDto,
   })
+  @UseGuards(BasicAuthGuard)
   async searchOne(
     @Request() req,
     @Param('id') id: number,
@@ -84,8 +94,7 @@ export class CatalogController {
       return await this.catalogService.searchOne(id);
     } catch (e) {
       Logger.error(
-        `CATALOG SEARCH ONE -- ERROR: ${
-          e.response ? JSON.stringify(e.response) : e
+        `CATALOG SEARCH ONE -- ERROR: ${e.response ? JSON.stringify(e.response) : e
         }`,
       );
       throw e;

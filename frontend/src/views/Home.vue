@@ -1,7 +1,9 @@
+<script lang="ts" setup>
+import Catalog from '@/components/Catalog.vue'
+</script>
+
 <template>
-  <HelloWorld />
+  <Catalog />
 </template>
 
-<script lang="ts" setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
-</script>
+
