@@ -3,10 +3,12 @@
 </script>
 
 <template>
-  <v-app-bar color="grey-lighten-5">
+  <v-app-bar color="indigo-accent-4">
 
     <v-app-bar-title>
-      <v-img :width="100" :height="20" contain src="@/assets/logo.svg"></v-img>
+      <router-link :to="{ name: 'Catalog' }">
+        <v-img :width="100" :height="20" contain src="@/assets/logo_white.svg"></v-img>
+      </router-link>
     </v-app-bar-title>
 
 

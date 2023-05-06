@@ -34,7 +34,7 @@ const load = async (): Promise<void> => {
 <template>
   <v-container fluid>
     <v-row dense>
-      <v-col v-for="item in list" :key="item.id" cols="12" sm="4">
+      <v-col v-for="item in list" :key="item.id" cols="12" sm="6" md="4" lg="3" xl=2>
         <v-sheet class="ma-1" rounded :elevation="2">
           <CatalogCard :data="item" />
         </v-sheet>

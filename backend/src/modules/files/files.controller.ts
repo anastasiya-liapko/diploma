@@ -23,7 +23,7 @@ import { BasicAuthGuard } from 'src/guards/basic-auth.guard';
 @ApiBearerAuth()
 @Controller('files')
 export class FilesController {
-  constructor(private filesService: FilesService) {}
+  constructor(private filesService: FilesService) { }
 
   @Post('/upload')
   @UseGuards(BasicAuthGuard)
@@ -38,6 +38,7 @@ export class FilesController {
     description: 'Каталог загружен',
     type: UploadResponseDto,
   })
+  // TODO: remove duplicated id and price 0 goods
   @UseInterceptors(FileInterceptor('file'))
   async upload(@UploadedFile() file: Express.Multer.File) {
     try {
