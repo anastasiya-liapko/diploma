@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Catalog from '@/components/Catalog.vue'
+import Catalog from '@/components/Catalog/Catalog.vue'
 </script>
 
 <template>

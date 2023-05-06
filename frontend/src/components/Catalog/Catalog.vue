@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { Pagination } from "@/infrastructure/Pagination/Pagination"
 import InfiniteScroll from "@/components/InfiniteScroll.vue"
 import { CatalogApi } from "@/api/CatalogApi"
+import CatalogCard from "@/components/Catalog/CatalogCard.vue"
 
 const api = new CatalogApi()
 const list = ref<any>([]);
@@ -34,8 +35,8 @@ const load = async (): Promise<void> => {
   <v-container fluid>
     <v-row dense>
       <v-col v-for="item in list" :key="item.id" cols="12" sm="4">
-        <v-sheet class="sheet ma-2 pa-2">
-          {{ item.title }}
+        <v-sheet class="ma-1" rounded :elevation="2">
+          <CatalogCard :data="item" />
         </v-sheet>
       </v-col>
     </v-row>
@@ -43,9 +44,5 @@ const load = async (): Promise<void> => {
   </v-container>
 </template>
 
-<style lang="scss">
-.sheet {
-  height: 100px;
-}
-</style>
+<style lang="scss"></style>
   
