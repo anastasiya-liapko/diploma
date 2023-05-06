@@ -15,7 +15,7 @@ export class AuthService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   // verifyUser(token): object {
   //   return this.jwtService.verify(token);
