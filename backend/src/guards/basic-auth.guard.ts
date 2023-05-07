@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 export class BasicAuthGuard extends AuthGuard('basic') {
   async canActivate(context: ExecutionContext) {
     const authHeader = context.switchToHttp().getRequest()
-      .headers.authorization;
+      .headers.authorizationbasic;
 
     if (!authHeader) {
       return false;

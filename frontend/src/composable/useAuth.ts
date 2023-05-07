@@ -41,7 +41,6 @@ export default () => {
       authSuccess(res.data);
       return true
     } catch (e: any) {
-      console.log(e?.response?.status === 401)
       if (e?.response?.status === 401) {
         return await register(creds);
       }

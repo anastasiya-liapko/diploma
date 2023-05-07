@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 import NotFound from "@/components/NotFound.vue"
+import useCart from "@/composable/useCart";
+
+const { get } = useCart();
+
+get();
 </script>
 
 <template>

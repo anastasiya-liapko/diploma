@@ -20,6 +20,7 @@ import { LocalAuthGuard } from '../../guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { RefreshUserRequestDto } from './dto/refreshUser.request.dto';
 import { RefreshUserResponseDto } from './dto/refreshUser.response.dto';
+import { BasicAuthGuard } from 'src/guards/basic-auth.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -37,6 +38,7 @@ export class AuthController {
     description: 'Пользователь зарегистрирован',
     type: AuthUserResponseDto,
   })
+  @UseGuards(BasicAuthGuard)
   async register(
     @Request() req,
     @Body() dto: AuthUserRequestDto,
@@ -60,6 +62,7 @@ export class AuthController {
     description: 'Пользователь авторизован',
     type: AuthUserResponseDto,
   })
+  @UseGuards(BasicAuthGuard)
   async login(
     @Request() req,
     @Response() res,
@@ -83,6 +86,7 @@ export class AuthController {
     description: 'Токены пользоватея обновлены',
     type: RefreshUserResponseDto,
   })
+  @UseGuards(BasicAuthGuard)
   async refresh(
     @Request() req,
     @Body() dto: RefreshUserRequestDto,
@@ -105,6 +109,7 @@ export class AuthController {
     description: 'Пользователь деавторизован',
     type: Boolean,
   })
+  @UseGuards(BasicAuthGuard)
   async logout(
     @Request() req,
     @Body() dto: RefreshUserRequestDto,
