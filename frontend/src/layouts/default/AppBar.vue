@@ -1,19 +1,27 @@
 <script lang="ts" setup>
 import AuthModal from "@/components/Auth/AuthModal.vue"
+import useAuth from "@/composable/useAuth";
+import { useAuthStore } from "@/store/auth";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
+const authStore = useAuthStore();
+const { logout } = useAuth();
 const isAuthModalVisible = ref<boolean>(false);
 
-const goToLK = (): void => {
-  // TODO: если не авторизован открывать модалку авторизации
-  // TODO: если авторизован переходить в лк
-  isAuthModalVisible.value = !isAuthModalVisible.value
+const gotToCart = () => {
+  if (!authStore.isAuthorized) {
+    isAuthModalVisible.value = !isAuthModalVisible.value
+  } else {
+    router.push({ name: "Cart" })
+  }
 }
 
-const gotToCart = () => {
-  // TODO: если не авторизован открывать модалку авторизации
-  // TODO: если авторизован переходить в корзину
-  isAuthModalVisible.value = !isAuthModalVisible.value
+const goToLK = (): void => {
+  if (!authStore.isAuthorized) {
+    isAuthModalVisible.value = !isAuthModalVisible.value
+  }
 }
 </script>
 
@@ -38,9 +46,20 @@ const gotToCart = () => {
       <v-icon>mdi-cart-outline</v-icon>
     </v-btn>
 
-    <v-btn icon @click="goToLK">
+    <v-btn id="menu-activator" icon @click="goToLK">
       <v-icon>mdi-account-outline</v-icon>
     </v-btn>
+
+    <v-menu :disabled="!authStore.isAuthorized" activator="#menu-activator">
+      <v-list>
+        <v-list-item value="lk" ripple append-icon="mdi-shopping-outline" :to="{ name: 'LK' }">
+          <v-list-item-title>мои заказы</v-list-item-title>
+        </v-list-item>
+        <v-list-item value="logout" ripple append-icon="mdi-logout" @click="logout">
+          <v-list-item-title>выйти</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
 
   </v-app-bar>
 </template>

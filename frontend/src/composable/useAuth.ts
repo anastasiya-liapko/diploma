@@ -1,5 +1,6 @@
 import { AuthApi } from "@/api/AuthApi";
 import { Auth } from "@/domain/Auth/Auth";
+import { Unauth } from "@/domain/Auth/Unauth";
 import { IDtoToken } from "@/domain/Token/DtoToken.interface";
 import { useAuthStore } from "@/store/auth";
 
@@ -7,13 +8,13 @@ export default () => {
   const authStore = useAuthStore();
   const authApi = new AuthApi();
 
-  const authSuccess = (creds: IDtoToken) => {
+  const authSuccess = (creds: IDtoToken): void => {
     localStorage.setItem('os_at', creds.token);
     localStorage.setItem('os_rt', creds.refreshToken);
     authStore.isAuthorized = true;
   }
 
-  const authError = () => {
+  const authError = (): void => {
     authStore.isAuthorized = false;
   }
 
@@ -23,7 +24,7 @@ export default () => {
     authStore.isAuthorized = false;
   }
 
-  const register = async (creds: Auth) => {
+  const register = async (creds: Auth): Promise<boolean> => {
     try {
       const res = await authApi.register(creds)
       authSuccess(res.data);
@@ -34,7 +35,7 @@ export default () => {
     }
   }
 
-  const login = async (creds: Auth) => {
+  const login = async (creds: Auth): Promise<boolean> => {
     try {
       const res = await authApi.login(creds)
       authSuccess(res.data);
@@ -49,21 +50,14 @@ export default () => {
     }
   }
 
-  const logout = async () => {
-    // let creds = {
-    //   login: store.state.userCreds.login,
-    //   refreshToken: localStorage.getItem('bmsAdminRefresh')
-    // }
-    // try {
-    //   await authApi.logout(creds)
-    // } catch (e) {
-    //   console.log(e)
-    // } finally {
-    //   store.commit('UNAUTH_SUCCESS')
-    // }
-    // router.push('/login')
-    // store.commit('RESET_STATE')
-    // store.commit('RESET_REGISTER_MODULES')
+  const logout = async (): Promise<void> => {
+    try {
+      await authApi.logout(new Unauth(localStorage.getItem('os_rt')))
+    } catch (e) {
+      console.log(e)
+    } finally {
+      unauthSuccess()
+    }
   }
 
   return {

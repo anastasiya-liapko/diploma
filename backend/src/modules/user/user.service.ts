@@ -17,7 +17,7 @@ import { AuthUserRequestDto } from '../auth/dto/authUser.request.dto';
 export class UserService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>, // @InjectModel('Club') private readonly clubModel: Model<Club>, // @Inject(forwardRef(() => RemoteService)) // private readonly remoteService: RemoteService,
-  ) {}
+  ) { }
 
   public async createUser(dto: AuthUserRequestDto): Promise<User> {
     const hash = UserService.wrapPassword(dto.password);
@@ -43,9 +43,9 @@ export class UserService {
       .select({ refresh: 1, _id: 0 });
   }
 
-  public async removeRefresh(email: string): Promise<boolean> {
+  public async removeRefresh(refreshToken: string): Promise<boolean> {
     const res = this.userModel
-      .findOneAndUpdate({ email }, { $set: { refresh: null } })
+      .findOneAndUpdate({ refreshToken }, { $set: { refresh: null } })
       .exec();
     if (res) {
       return true;
@@ -54,7 +54,6 @@ export class UserService {
 
   public async checkRefresh(dto: RefreshUserRequestDto): Promise<User> {
     return this.userModel.findOne({
-      email: dto.email,
       refresh: dto.refreshToken,
     });
   }

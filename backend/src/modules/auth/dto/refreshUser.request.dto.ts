@@ -5,10 +5,5 @@ export class RefreshUserRequestDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  email: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
   refreshToken: string;
 }

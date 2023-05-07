@@ -30,7 +30,6 @@ const submit = async (): Promise<void> => {
 
   const response = await login(data.value);
   if (response) {
-    // TODO: поменять иконку юзера на иконку выхода
     dialog.value = false;
   }
 

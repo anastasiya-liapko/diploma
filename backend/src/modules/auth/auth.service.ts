@@ -46,8 +46,8 @@ export class AuthService {
     };
   }
 
-  public async logout(user: any): Promise<boolean> {
-    return await this.userService.removeRefresh(user.email);
+  public async logout(user: RefreshUserRequestDto): Promise<boolean> {
+    return await this.userService.removeRefresh(user.refreshToken);
   }
 
   public async refresh(dto: RefreshUserRequestDto) {

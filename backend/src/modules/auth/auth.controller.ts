@@ -20,7 +20,6 @@ import { LocalAuthGuard } from '../../guards/local-auth.guard';
 import { AuthService } from './auth.service';
 import { RefreshUserRequestDto } from './dto/refreshUser.request.dto';
 import { RefreshUserResponseDto } from './dto/refreshUser.response.dto';
-import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -106,7 +105,10 @@ export class AuthController {
     description: 'Пользователь деавторизован',
     type: Boolean,
   })
-  async logout(@Request() req, @Body() dto: any): Promise<boolean> {
+  async logout(
+    @Request() req,
+    @Body() dto: RefreshUserRequestDto,
+  ): Promise<boolean> {
     try {
       return await this.authService.logout(dto);
     } catch (e) {
