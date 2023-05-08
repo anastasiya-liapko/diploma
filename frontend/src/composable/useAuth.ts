@@ -41,7 +41,7 @@ export default () => {
       authSuccess(res.data);
       return true
     } catch (e: any) {
-      if (e?.response?.status === 401) {
+      if (e?.status === 404) {
         return await register(creds);
       }
       authError();

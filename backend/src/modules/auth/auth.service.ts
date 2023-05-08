@@ -67,4 +67,13 @@ export class AuthService {
     }
     return null;
   }
+
+  public async getUser(email: string): Promise<any> {
+    const user = await this.userService.getUser(email);
+    if (user) {
+      delete user.password;
+      return user;
+    }
+    return null;
+  }
 }

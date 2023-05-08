@@ -1,38 +1,42 @@
 import { CartApi } from "@/api/CartApi";
 import { Cart } from "@/domain/Cart/Cart";
+import { useCartStore } from "@/store/cart";
 import { ref } from "vue";
 
 export default () => {
   const cartApi = new CartApi();
-
-  const cart = ref<Cart>(new Cart());
-  const isLoading = ref<boolean>(true);
+  const cartStore = useCartStore();
 
   const get = async (): Promise<void> => {
-    isLoading.value = true;
+    cartStore.isLoading = true;
     try {
       const response = await cartApi.get();
-      cart.value = response.data;
+      cartStore.cart = response.data;
     } catch (e) {
       console.log(e)
     } finally {
-      isLoading.value = false;
+      cartStore.isLoading = false;
     }
   }
 
   const patch = async (_id: string, count: number): Promise<void> => {
     try {
       const response = await cartApi.patch(_id, count);
-      cart.value = response.data;
+      cartStore.cart = response.data;
     } catch (e) {
       console.log(e)
     }
   }
 
+  const reset = (): void => {
+    cartStore.cart = new Cart();
+  }
+
   return {
-    isLoading,
-    cart,
+    isLoading: cartStore.isLoading,
+    cart: cartStore.cart,
     get,
-    patch
+    patch,
+    reset
   }
 };

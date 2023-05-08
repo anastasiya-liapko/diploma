@@ -64,4 +64,4 @@ import { CatalogModule } from './modules/catalog/catalog.module';
   controllers: [AppController],
   providers: [AppService, JwtStrategy, WsStrategy],
 })
-export class AppModule {}
+export class AppModule { }

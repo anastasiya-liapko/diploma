@@ -2,16 +2,39 @@
 import useCart from '@/composable/useCart';
 import { Good } from '@/domain/Good/Good';
 import router from '@/router';
+import { useAuthStore } from '@/store/auth';
+import { computed } from 'vue';
 
 const props = defineProps<{
   data: Good
 }>();
 
-const { patch } = useCart();
+const authStore = useAuthStore();
+const { cart, patch } = useCart();
+
+const addToCart = (): void => {
+  if (!authStore.isAuthorized) {
+    authStore.isAuthModalVisible = !authStore.isAuthModalVisible
+  } else {
+    patch(props.data._id, 1)
+  }
+}
 
 const routeToCatalogItem = (): void => {
   router.push({ name: 'CatalogItem', params: { id: props.data.id } })
 }
+
+const isAddedToCart = computed<boolean>(() => {
+  return !!cart.goods.find(item => item.good._id === props.data._id)
+})
+
+const buttonText = computed<string>(() => {
+  return isAddedToCart.value ? "в корзине" : "в корзину"
+})
+
+const buttonColor = computed<string>(() => {
+  return isAddedToCart.value ? "success" : "indigo-accent-4"
+})
 </script>
 
 <template>
@@ -29,9 +52,9 @@ const routeToCatalogItem = (): void => {
     <v-card-actions>
       <p>{{ data.price }} руб.</p>
       <v-spacer />
-      <v-btn @click.stop="patch(data._id, 1)" class="text-none text-subtitle-1" ripple color="indigo-accent-4"
-        size="default" variant="flat">
-        в корзину
+      <v-btn @click.stop="addToCart" class="text-none text-subtitle-1" ripple :color="buttonColor" size="default"
+        variant="flat">
+        {{ buttonText }}
       </v-btn>
     </v-card-actions>
   </v-card>

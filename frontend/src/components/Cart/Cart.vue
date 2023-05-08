@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import NotFound from "@/components/NotFound.vue"
 import useCart from "@/composable/useCart";
+import { useCartStore } from "@/store/cart";
 
+// TODO: добавить итого и перейти к оформлению
+const cartStore = useCartStore();
 const { isLoading, cart, get, patch } = useCart();
-
-get();
 </script>
 
 <template>
@@ -58,6 +59,8 @@ get();
           </v-card>
         </v-sheet>
       </v-col>
+
+      {{ cartStore.totalPrice }}
     </v-row>
 
   </v-container>

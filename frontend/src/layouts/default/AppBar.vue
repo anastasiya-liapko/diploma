@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import AuthModal from "@/components/Auth/AuthModal.vue"
 import useAuth from "@/composable/useAuth";
 import { useAuthStore } from "@/store/auth";
+import { useCartStore } from "@/store/cart";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const authStore = useAuthStore();
+const cartStore = useCartStore();
 const { logout } = useAuth();
-const isAuthModalVisible = ref<boolean>(false);
 
 const gotToCart = () => {
   if (!authStore.isAuthorized) {
-    isAuthModalVisible.value = !isAuthModalVisible.value
+    authStore.isAuthModalVisible = !authStore.isAuthModalVisible
   } else {
     router.push({ name: "Cart" })
   }
@@ -20,14 +20,12 @@ const gotToCart = () => {
 
 const goToLK = (): void => {
   if (!authStore.isAuthorized) {
-    isAuthModalVisible.value = !isAuthModalVisible.value
+    authStore.isAuthModalVisible = !authStore.isAuthModalVisible
   }
 }
 </script>
 
 <template>
-  <AuthModal v-model="isAuthModalVisible" />
-
   <v-app-bar color="indigo-accent-4">
 
     <v-app-bar-title>
@@ -43,7 +41,9 @@ const goToLK = (): void => {
     </v-btn>
 
     <v-btn icon @click="gotToCart">
-      <v-icon>mdi-cart-outline</v-icon>
+      <v-badge :content="cartStore.totalCount" color="error">
+        <v-icon>mdi-cart-outline</v-icon>
+      </v-badge>
     </v-btn>
 
     <v-btn id="menu-activator" icon @click="goToLK">
