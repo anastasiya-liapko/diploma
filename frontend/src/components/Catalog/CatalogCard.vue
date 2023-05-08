@@ -3,6 +3,7 @@ import useCart from '@/composable/useCart';
 import { Good } from '@/domain/Good/Good';
 import router from '@/router';
 import { useAuthStore } from '@/store/auth';
+import { useCartStore } from '@/store/cart';
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -10,7 +11,8 @@ const props = defineProps<{
 }>();
 
 const authStore = useAuthStore();
-const { cart, patch } = useCart();
+const cartStore = useCartStore();
+const { patch } = useCart();
 
 const addToCart = (): void => {
   if (!authStore.isAuthorized) {
@@ -25,7 +27,7 @@ const routeToCatalogItem = (): void => {
 }
 
 const isAddedToCart = computed<boolean>(() => {
-  return !!cart.goods.find(item => item.good._id === props.data._id)
+  return !!cartStore.cart.goods.find(item => item.good._id === props.data._id)
 })
 
 const buttonText = computed<string>(() => {

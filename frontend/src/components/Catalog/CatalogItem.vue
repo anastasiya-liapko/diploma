@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { Good } from '@/domain/Good/Good';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { CatalogApi } from "@/api/CatalogApi"
+import { useAuthStore } from '@/store/auth';
+import { useCartStore } from '@/store/cart';
+import useCart from '@/composable/useCart';
 
 const props = defineProps<{
   id: string;
@@ -10,6 +13,9 @@ const props = defineProps<{
 const api = new CatalogApi()
 const data = ref<Good>();
 const isLoading = ref<boolean>(true);
+const authStore = useAuthStore();
+const cartStore = useCartStore();
+const { patch } = useCart();
 
 const load = async (): Promise<void> => {
   isLoading.value = true;
@@ -24,6 +30,27 @@ const load = async (): Promise<void> => {
     isLoading.value = false;
   }
 }
+
+const addToCart = (): void => {
+  if (!data.value) return
+  if (!authStore.isAuthorized) {
+    authStore.isAuthModalVisible = !authStore.isAuthModalVisible
+  } else {
+    patch(data.value._id, 1)
+  }
+}
+
+const isAddedToCart = computed<boolean>(() => {
+  return !!cartStore.cart.goods.find(item => item.good._id === data.value?._id)
+})
+
+const buttonText = computed<string>(() => {
+  return isAddedToCart.value ? "в корзине" : "в корзину"
+})
+
+const buttonColor = computed<string>(() => {
+  return isAddedToCart.value ? "success" : "indigo-accent-4"
+})
 
 load();
 </script>
@@ -63,8 +90,9 @@ load();
               </li>
             </ul>
 
-            <v-btn block class="text-none" color="indigo-accent-4" ripple size="default" variant="flat">
-              в корзину
+            <v-btn block class="text-none" :color="buttonColor" ripple size="default" variant="flat"
+              @click.stop="addToCart">
+              {{ buttonText }}
             </v-btn>
           </v-col>
         </v-row>
