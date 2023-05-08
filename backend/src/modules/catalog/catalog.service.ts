@@ -16,7 +16,7 @@ export class CatalogService {
     private readonly categoryModel: Model<Category>,
     @InjectModel('Manufacturer')
     private readonly manufacturerModel: Model<Manufacturer>,
-  ) {}
+  ) { }
 
   async search(dto: searchRequestDto): Promise<searchResponseDto> {
     const { page, size, sort, search } = dto;
@@ -43,7 +43,7 @@ export class CatalogService {
 
     request.push({
       $project: {
-        _id: 0,
+        _id: 1,
         id: 1,
         title: 1,
         description: 1,

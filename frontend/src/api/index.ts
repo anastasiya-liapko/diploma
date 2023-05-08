@@ -1,4 +1,4 @@
-// import { Unauth } from '@/domain/Auth/Unauth';
+import { Unauth } from '@/domain/Auth/Unauth';
 import axios from 'axios';
 
 let baseURL
@@ -18,11 +18,11 @@ const server = axios.create({
 //   localStorage.setItem('os_rt', res.data.refreshToken);
 // }
 
-// const logout = async (): Promise<void> => {
-//   await server.post(`/auth/logout`, new Unauth(localStorage.getItem('os_rt')))
-//   localStorage.removeItem('os_at');
-//   localStorage.removeItem('os_rt');
-// }
+const logout = async (): Promise<void> => {
+  await server.post(`/auth/logout`, new Unauth(localStorage.getItem('os_rt')))
+  localStorage.removeItem('os_at');
+  localStorage.removeItem('os_rt');
+}
 
 server.interceptors.request.use(async (request) => {
   const accessToken = localStorage.getItem(`os_at`);
@@ -34,28 +34,30 @@ server.interceptors.request.use(async (request) => {
   return request;
 });
 
-// server.interceptors.response.use(null, async (error) => {
-//   const originalRequest = error.response.config;
+server.interceptors.response.use(null, async (error) => {
+  const originalRequest = error.response.config;
 
-//   if (error.response && error.response.status === 401) {
-//     if (error.response.data.message === 'jwt expired' || error.response.data.message === 'jwt invalid') {
-//       try {
-//         await refresh();
-//         return await server(originalRequest);
-//       } catch (e) {
-//         if (error.response.status === 401) {
-//           await logout();
-//         } else {
-//           throw e;
-//         }
-//       }
-//     } else {
-//       await logout();
-//       throw error.response || error;
-//     }
-//   } else {
-//     throw error.response || error;
-//   }
-// })
+  if (error.response && error.response.status === 401) {
+    // if (error.response.data.message === 'jwt expired' || error.response.data.message === 'jwt invalid') {
+    //   try {
+    //     await refresh();
+    //     return await server(originalRequest);
+    //   } catch (e) {
+    //     if (error.response.status === 401) {
+    //       await logout();
+    //     } else {
+    //       throw e;
+    //     }
+    //   }
+    // } else {
+    //   await logout();
+    //   throw error.response || error;
+    // }
+    await logout();
+    throw error.response || error;
+  } else {
+    throw error.response || error;
+  }
+})
 
 export { server }

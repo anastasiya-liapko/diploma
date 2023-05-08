@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import useCart from '@/composable/useCart';
 import { Good } from '@/domain/Good/Good';
 import router from '@/router';
 
@@ -6,9 +7,7 @@ const props = defineProps<{
   data: Good
 }>();
 
-const addToCart = async (): Promise<void> => {
-  console.log("add to cart")
-}
+const { patch } = useCart();
 
 const routeToCatalogItem = (): void => {
   router.push({ name: 'CatalogItem', params: { id: props.data.id } })
@@ -30,8 +29,8 @@ const routeToCatalogItem = (): void => {
     <v-card-actions>
       <p>{{ data.price }} руб.</p>
       <v-spacer />
-      <v-btn @click.stop="addToCart" class="text-none text-subtitle-1" ripple color="indigo-accent-4" size="default"
-        variant="flat">
+      <v-btn @click.stop="patch(data._id, 1)" class="text-none text-subtitle-1" ripple color="indigo-accent-4"
+        size="default" variant="flat">
         в корзину
       </v-btn>
     </v-card-actions>
