@@ -2,6 +2,7 @@ import { Manufacturer } from "../Manufacturer/Manufacturer";
 import { IDtoGood } from "./DtoGood.interface";
 
 export class Good {
+  _id: string;
   id: number;
   title: string;
   description: string;
@@ -13,6 +14,7 @@ export class Good {
   weight: number;
 
   constructor(dto: IDtoGood) {
+    this._id = dto._id;
     this.id = dto.id;
     this.title = dto.title;
     this.description = dto.description;

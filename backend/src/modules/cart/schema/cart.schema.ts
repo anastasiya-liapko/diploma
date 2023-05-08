@@ -5,14 +5,15 @@ export const CartSchema = new mongoose.Schema({
     {
       _id: false,
       count: Number,
-      good_id: {
+      good: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Good',
       },
     },
   ],
-  user_id: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  total_price: Number,
 });

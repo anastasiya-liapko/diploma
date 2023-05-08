@@ -47,10 +47,11 @@ const submit = async (): Promise<void> => {
         <v-container>
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="data.email" label="Email*" required></v-text-field>
+              <v-text-field v-model="data.email" label="Email*" required variant="outlined"></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field v-model="data.password" label="Password*" type="password" required></v-text-field>
+              <v-text-field v-model="data.password" label="Password*" type="password" required
+                variant="outlined"></v-text-field>
             </v-col>
           </v-row>
         </v-container>
@@ -58,10 +59,10 @@ const submit = async (): Promise<void> => {
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+        <v-btn color="indigo-accent-4" variant="text" @click="dialog = false">
           Отменить
         </v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="submit" :loading="isLoading">
+        <v-btn color="indigo-accent-4" variant="text" @click="submit" :loading="isLoading">
           Войти
         </v-btn>
       </v-card-actions>

@@ -1,6 +1,7 @@
 import { Manufacturer } from "../Manufacturer/Manufacturer";
 
 export interface IDtoGood {
+  _id: string;
   id: number;
   title: string;
   description: string;
