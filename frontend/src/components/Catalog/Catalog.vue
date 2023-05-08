@@ -33,6 +33,7 @@ const load = async (): Promise<void> => {
 
 <template>
   <v-container fluid>
+    <h1 class="text-h3 pb-6 pt-6">Каталог товаров</h1>
     <v-row dense>
       <v-col v-for="item in list" :key="item.id" cols="12" sm="6" md="4" lg="3" xl=2>
         <v-sheet class="ma-1" rounded :elevation="2">

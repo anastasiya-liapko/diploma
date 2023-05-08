@@ -10,6 +10,9 @@ const { get, patch } = useCart();
 
 <template>
   <v-container class="cart" fluid>
+    <h1 v-if="cartStore.cart.goods.length && !cartStore.isLoading" class="text-h3 pb-6 pt-6">Корзина ({{
+      cartStore.totalCount }})</h1>
+
     <NotFound v-if="!cartStore.cart.goods.length && !cartStore.isLoading" icon="mdi-cart-outline"
       title="В корзине ничего нет" description="Добавьте товары в корзину" button-text="в каталог" />
 
@@ -18,10 +21,10 @@ const { get, patch } = useCart();
         <v-sheet class="ma-1" rounded :elevation="2">
           <v-card class="catalog-card">
             <v-row>
-              <v-col cols="4">
+              <v-col cols="12" sm="4">
                 <v-img :src="item.good.imageLink" height="200px" contain></v-img>
               </v-col>
-              <v-col cols="8">
+              <v-col cols="12" sm="8">
                 <v-card-title>
                   {{ item.good.title }}
                 </v-card-title>
@@ -30,8 +33,9 @@ const { get, patch } = useCart();
                   {{ item.good.id }}
                 </v-card-subtitle>
 
-                <v-card-actions class="w-25">
-                  <v-text-field v-model="item.count" variant="outlined">
+                <v-card-actions class="cart__actions">
+                  <v-text-field v-model="item.count" variant="outlined"
+                    @update:modelValue="patch(item.good._id, item.count)">
                     <template v-slot:prepend>
                       <v-btn color="indigo-accent-4" variant="text" @click="patch(item.good._id, item.count -= 1)"
                         :disabled="item.count === 0">
@@ -42,9 +46,14 @@ const { get, patch } = useCart();
                     </template>
                     <template v-slot:append>
                       <v-btn color="indigo-accent-4" variant="text" @click="patch(item.good._id, item.count += 1)"
-                        :disabled="item.count === 50">
+                        :disabled="item.count === 100">
                         <v-icon color="indigo-accent-4">
                           mdi-plus
+                        </v-icon>
+                      </v-btn>
+                      <v-btn color="indigo-accent-4" variant="text" @click="patch(item.good._id, 0)">
+                        <v-icon color="indigo-accent-4">
+                          mdi-trash-can-outline
                         </v-icon>
                       </v-btn>
                     </template>
@@ -66,4 +75,10 @@ const { get, patch } = useCart();
   </v-container>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.cart {
+  &__actions {
+    max-width: 20rem;
+  }
+}
+</style>

@@ -64,7 +64,6 @@ load();
     <v-sheet v-if="isLoading" min-height="300" max-width="750" class="bg-grey-lighten-3 text-body-2 mx-auto"
       rounded="lg"></v-sheet>
     <v-sheet v-else-if="data" border="lg opacity-12" class="text-body-2 mx-auto" max-width="750" rounded="lg">
-
       <v-container fluid>
         <v-row>
           <v-col cols="4">
@@ -72,6 +71,7 @@ load();
           </v-col>
 
           <v-col cols="8">
+            <h1 v-if="!isLoading && data" class="mx-auto text-h5 pb-6 pt-6">{{ data.title }}</h1>
             <p class="mb-4">
               {{ data.description }}
             </p>

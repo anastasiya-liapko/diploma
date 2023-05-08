@@ -41,28 +41,29 @@ const submit = async (): Promise<void> => {
   <v-dialog v-model="dialog" width="600">
     <v-card>
       <v-card-title>
-        <span class="text-h5">Войти</span>
+        <span class="text-h5">Войти или зарегистрироваться</span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="data.email" label="Email*" required variant="outlined"></v-text-field>
+              <v-text-field v-model="data.email" label="Электронная почта" required variant="outlined"></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field v-model="data.password" label="Password*" type="password" required
+              <v-text-field v-model="data.password" label="Пароль" type="password" required
                 variant="outlined"></v-text-field>
             </v-col>
           </v-row>
         </v-container>
-        <small>*обязательные к заполнению поля</small>
+        <small>Если вы не регистрировались ранее, придумайте логин и пароль для регистрации</small>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="indigo-accent-4" variant="text" @click="dialog = false">
           Отменить
         </v-btn>
-        <v-btn color="indigo-accent-4" variant="text" @click="submit" :loading="isLoading">
+        <v-btn class="text-none text-subtitle-1" color="indigo-accent-4" variant="flat" ripple :loading="isLoading"
+          @click="submit">
           Войти
         </v-btn>
       </v-card-actions>
