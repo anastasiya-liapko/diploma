@@ -5,16 +5,16 @@ import { useCartStore } from "@/store/cart";
 
 // TODO: добавить итого и перейти к оформлению
 const cartStore = useCartStore();
-const { isLoading, cart, get, patch } = useCart();
+const { get, patch } = useCart();
 </script>
 
 <template>
   <v-container class="cart" fluid>
-    <NotFound v-if="!cart.goods.length && !isLoading" icon="mdi-cart-outline" title="В корзине ничего нет"
-      description="Добавьте товары в корзину" button-text="в каталог" />
+    <NotFound v-if="!cartStore.cart.goods.length && !cartStore.isLoading" icon="mdi-cart-outline"
+      title="В корзине ничего нет" description="Добавьте товары в корзину" button-text="в каталог" />
 
-    <v-row v-else-if="!isLoading" dense>
-      <v-col v-for="item in cart.goods" :key="item.good.id" cols="12">
+    <v-row v-else-if="!cartStore.isLoading" dense>
+      <v-col v-for="item in cartStore.cart.goods" :key="item.good.id" cols="12">
         <v-sheet class="ma-1" rounded :elevation="2">
           <v-card class="catalog-card">
             <v-row>

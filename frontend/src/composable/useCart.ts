@@ -1,7 +1,6 @@
 import { CartApi } from "@/api/CartApi";
 import { Cart } from "@/domain/Cart/Cart";
 import { useCartStore } from "@/store/cart";
-import { ref } from "vue";
 
 export default () => {
   const cartApi = new CartApi();
@@ -33,8 +32,6 @@ export default () => {
   }
 
   return {
-    isLoading: cartStore.isLoading,
-    cart: cartStore.cart,
     get,
     patch,
     reset

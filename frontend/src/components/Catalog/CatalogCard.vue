@@ -18,7 +18,11 @@ const addToCart = (): void => {
   if (!authStore.isAuthorized) {
     authStore.isAuthModalVisible = !authStore.isAuthModalVisible
   } else {
-    patch(props.data._id, 1)
+    if (isAddedToCart.value) {
+      patch(props.data._id, 0)
+    } else {
+      patch(props.data._id, 1)
+    }
   }
 }
 
@@ -54,8 +58,8 @@ const buttonColor = computed<string>(() => {
     <v-card-actions>
       <p>{{ data.price }} руб.</p>
       <v-spacer />
-      <v-btn @click.stop="addToCart" class="text-none text-subtitle-1" ripple :color="buttonColor" size="default"
-        variant="flat">
+      <v-btn class="text-none text-subtitle-1" ripple :color="buttonColor" size="default" variant="flat"
+        @click.stop="addToCart">
         {{ buttonText }}
       </v-btn>
     </v-card-actions>

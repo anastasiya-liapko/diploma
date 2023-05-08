@@ -36,7 +36,11 @@ const addToCart = (): void => {
   if (!authStore.isAuthorized) {
     authStore.isAuthModalVisible = !authStore.isAuthModalVisible
   } else {
-    patch(data.value._id, 1)
+    if (isAddedToCart.value) {
+      patch(data.value._id, 0)
+    } else {
+      patch(data.value._id, 1)
+    }
   }
 }
 
