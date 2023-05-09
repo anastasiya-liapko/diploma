@@ -32,14 +32,17 @@ export class StoreService {
     dto: PostStoreRequestDto,
   ): Promise<PostStoreResponseDto> => {
     const store = await this.storeModel.find();
-    await this.addressesService.deleteMany(store[0].addresses);
-    try {
-      await this.storeModel.collection.drop();
-    } catch (e) {
-      Logger.error(
-        `STORE COLLECTION DROP -- ERROR: ${e.response ? JSON.stringify(e.response) : e
-        }`,
-      );
+
+    if (store.length) {
+      await this.addressesService.deleteMany(store[0].addresses);
+      try {
+        await this.storeModel.collection.drop();
+      } catch (e) {
+        Logger.error(
+          `STORE COLLECTION DROP -- ERROR: ${e.response ? JSON.stringify(e.response) : e
+          }`,
+        );
+      }
     }
 
     const addresses = await this.addressesService.putMany(dto.addresses);
