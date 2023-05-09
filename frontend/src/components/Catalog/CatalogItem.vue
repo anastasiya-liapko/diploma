@@ -103,7 +103,6 @@ load();
       </v-container>
     </v-sheet>
   </v-container>
-  <!-- </v-sheet> -->
 </template>
 
 <style lang="scss"></style>

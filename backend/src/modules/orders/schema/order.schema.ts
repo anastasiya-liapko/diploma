@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { EOrderStatus } from '../order.interface';
+import { EDeliveryType, EOrderStatus } from '../order.interface';
 
 export const OrderSchema = new mongoose.Schema(
   {
@@ -7,19 +7,24 @@ export const OrderSchema = new mongoose.Schema(
       {
         _id: false,
         count: Number,
-        good_id: {
+        good: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Good',
         },
       },
     ],
-    user_id: {
+    total_price: Number,
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    address_id: {
+    address: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Address',
+    },
+    delivery_type: {
+      type: String,
+      default: EDeliveryType.PICKUP,
     },
     status: {
       type: String,

@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ObjectId } from 'mongoose';
 
 export class GetAddressResponseDto {
   @ApiProperty()
-  _id: number;
+  _id: string;
 
   @ApiProperty()
   title: string;

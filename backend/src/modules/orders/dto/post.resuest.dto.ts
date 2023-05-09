@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class getCategoryResponseDto {
+export class PostOrderRequestDto {
   @ApiProperty()
-  _id: string;
+  address: string;
 
   @ApiProperty()
-  title: string;
+  delivery_type: string;
 }

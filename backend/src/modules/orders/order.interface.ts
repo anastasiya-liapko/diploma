@@ -7,14 +7,21 @@ export enum EOrderStatus {
   DELIVERED = 'delivered',
 }
 
+export enum EDeliveryType {
+  PICKUP = 'pickup',
+  DELIVERY = 'delivery',
+}
+
 export interface Order extends Document {
   goods: [
     {
       count: number;
-      good_id: mongoose.Schema.Types.ObjectId;
+      good: mongoose.Schema.Types.ObjectId;
     },
   ];
-  user_id: mongoose.Schema.Types.ObjectId;
-  address_id: mongoose.Schema.Types.ObjectId;
+  total_price: number;
+  user: mongoose.Schema.Types.ObjectId;
+  address: mongoose.Schema.Types.ObjectId;
+  delivery_type: EDeliveryType;
   status: EOrderStatus;
 }
