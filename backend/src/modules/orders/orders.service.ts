@@ -38,6 +38,7 @@ export class OrdersService {
     });
     try {
       const res = await newOrder.save();
+      await this.cartService.delete(user);
       return await this.getById(user, res._id);
     } catch (err) {
       throw new BadRequestException(err.message);

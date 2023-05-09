@@ -148,4 +148,8 @@ export class CartService {
 
     return await this.get(user);
   };
+
+  public delete = async (user: User): Promise<any> => {
+    return await this.cartModel.deleteOne({ user: user._id });
+  };
 }

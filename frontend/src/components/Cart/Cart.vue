@@ -38,7 +38,7 @@ const { get, patch } = useCart();
                     @update:modelValue="patch(item.good._id, item.count)">
                     <template v-slot:prepend>
                       <v-btn color="indigo-accent-4" variant="text" @click="patch(item.good._id, item.count -= 1)"
-                        :disabled="item.count === 0">
+                        :disabled="item.count === 1">
                         <v-icon color="indigo-accent-4">
                           mdi-minus
                         </v-icon>
@@ -68,34 +68,34 @@ const { get, patch } = useCart();
           </v-card>
         </v-sheet>
       </v-col>
-
-
     </v-row>
 
-    <v-row>
-      <v-col cols="6">
-        Количество
-      </v-col>
-      <v-col cols="6" class="text-right">
-        {{ cartStore.totalCount }} ед.
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="6">
-        Стоимость товаров
-      </v-col>
-      <v-col cols="6" class="text-right">
-        {{ cartStore.totalPrice }} руб.
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" class="text-center">
-        <v-btn color="indigo-accent-4" class="text-none text-subtitle-1" ripple size="default" variant="flat"
-          :to="{ name: 'Order' }">
-          Перейти к оформлению
-        </v-btn>
-      </v-col>
-    </v-row>
+    <div v-if="cartStore.cart.goods.length && !cartStore.isLoading">
+      <v-row>
+        <v-col cols="6">
+          Количество
+        </v-col>
+        <v-col cols="6" class="text-right">
+          {{ cartStore.totalCount }} ед.
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="6">
+          Стоимость товаров
+        </v-col>
+        <v-col cols="6" class="text-right">
+          {{ cartStore.totalPrice }} руб.
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" class="text-center">
+          <v-btn color="indigo-accent-4" class="text-none text-subtitle-1" ripple size="default" variant="flat"
+            :to="{ name: 'Order' }">
+            Перейти к оформлению
+          </v-btn>
+        </v-col>
+      </v-row>
+    </div>
 
   </v-container>
 </template>

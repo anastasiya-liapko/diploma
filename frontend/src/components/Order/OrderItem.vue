@@ -1,13 +1,8 @@
 <script lang="ts" setup>
-import { Good } from '@/domain/Good/Good';
-import { computed, ref } from 'vue';
-import { CatalogApi } from "@/api/CatalogApi"
-import { useAuthStore } from '@/store/auth';
-import { useCartStore } from '@/store/cart';
+import { ref } from 'vue';
 import useCart from '@/composable/useCart';
 import useOrder from '@/composable/useOrder';
 import { Order } from '@/domain/Order/Order';
-import { Address } from '@/domain/Address/Address';
 import OrderCard from "@/components/Order/OrderCard.vue"
 
 const props = defineProps<{
@@ -17,6 +12,7 @@ const props = defineProps<{
 const data = ref<Order>();
 const isLoading = ref<boolean>(true);
 const { get } = useOrder();
+const { get: getCart } = useCart();
 
 const load = async (): Promise<void> => {
   isLoading.value = true;
@@ -35,6 +31,7 @@ const load = async (): Promise<void> => {
 }
 
 load();
+getCart();
 </script>
 
 <template>
