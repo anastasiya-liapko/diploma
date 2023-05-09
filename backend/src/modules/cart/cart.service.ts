@@ -27,17 +27,17 @@ export class CartService {
 
       request.push({
         $set: {
-          goods: {
+          items: {
             $map: {
-              input: '$goods',
+              input: '$items',
               in: {
                 $mergeObjects: [
                   '$$this',
                   {
-                    good: {
+                    item: {
                       $arrayElemAt: [
-                        '$items',
-                        { $indexOfArray: ['$items._id', '$$this.good'] },
+                        '$goods',
+                        { $indexOfArray: ['$goods.good', '$$this._id'] },
                       ],
                     },
                   },
@@ -47,15 +47,6 @@ export class CartService {
           },
         },
       });
-
-      request.push({
-        $project: {
-          _id: 0,
-          user: 0,
-        },
-      });
-
-      request.push({ $unset: 'items' });
 
       const data = await this.cartModel
         .aggregate(request)
@@ -73,6 +64,37 @@ export class CartService {
           total_price: 0,
           goods: [],
         };
+      } else {
+        const goods = data[0].items.map((item) => {
+          const v = {
+            count: item.item.count,
+            good: item,
+          };
+          delete v.good.item;
+          return v;
+        });
+
+        data[0].goods = goods;
+
+        const query = { ...data[0] };
+        query.goods = query.goods.map((item) => {
+          return {
+            count: item.count,
+            good: item.good._id,
+          };
+        });
+        await this.cartModel.findOneAndUpdate(
+          {
+            user: new mongoose.Types.ObjectId(user._id),
+          },
+          {
+            $set: query,
+          },
+          {
+            new: true,
+            lean: true,
+          },
+        );
       }
 
       const total_price = data[0].goods.reduce((acc: number, item: any, i) => {
