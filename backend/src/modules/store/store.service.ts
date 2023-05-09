@@ -25,7 +25,7 @@ export class StoreService {
     const res = await this.storeModel.find().populate({
       path: 'addresses',
     });
-    return res[0];
+    return res[0] || { name: '', addresses: [] };
   };
 
   public post = async (
