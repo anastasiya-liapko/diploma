@@ -1,18 +1,23 @@
 import * as mongoose from 'mongoose';
 
-export const ManufacturerSchema = new mongoose.Schema({
-  id: Number,
-  title: String,
-  description: {
-    type: String,
-    default: '',
+export const ManufacturerSchema = new mongoose.Schema(
+  {
+    id: Number,
+    title: String,
+    description: {
+      type: String,
+      default: '',
+    },
+    imageLink: {
+      type: String,
+      default: '',
+    },
+    siteLink: {
+      type: String,
+      default: '',
+    },
   },
-  imageLink: {
-    type: String,
-    default: '',
+  {
+    versionKey: false,
   },
-  siteLink: {
-    type: String,
-    default: '',
-  },
-});
+);

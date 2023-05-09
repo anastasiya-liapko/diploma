@@ -12,10 +12,6 @@ export const UserSchema = new mongoose.Schema(
       default: '',
     },
     refresh: String,
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
     addresses: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -63,6 +63,13 @@ export class UserService {
     return this.userModel.findOne({ email, password: hash }).lean();
   }
 
+  public async pushAddress(email: string, address_id: string): Promise<any> {
+    return this.userModel.updateOne(
+      { email },
+      { $push: { addresses: address_id } },
+    );
+  }
+
   private static generateRefresh(): Promise<string> {
     return new Promise((resolve, reject) => {
       try {
@@ -78,62 +85,4 @@ export class UserService {
   private static wrapPassword(pwd): string {
     return crypto.createHmac('SHA256', 'b69F3FeB').update(pwd).digest('base64');
   }
-
-  //   async checkBMSAdmin(userId) {
-  //     const user = await this.userModel.findById(userId, 'BMSAdmin', {
-  //       lean: true,
-  //     });
-  //     return user.BMSAdmin;
-  //   }
-
-  //   async profile(userId: string): Promise<any> {
-  //     const BMSAdmin = await this.checkBMSAdmin(userId);
-  //     const clubFields = BMSAdmin
-  //       ? '-token -webShopToken'
-  //       : '-token -api -webShopToken';
-
-  //     const user = await this.userModel
-  //       .findById(userId, '-password -refresh -__v', { lean: true })
-  //       .populate('structure.club', clubFields);
-
-  //     let clubs;
-
-  //     if (user.structure.length) {
-  //       clubs = user.structure.map((item) => item.club);
-  //     } else {
-  //       clubs = await this.clubModel.find({}, clubFields);
-  //     }
-
-  //     const usersPermission =
-  //       !user.modules.length || user.modules.find((el) => el.name === 'Users');
-  //     let usersTotal = 0;
-  //     if (usersPermission) {
-  //       usersTotal = await this.getUsersTotal(
-  //         this.getAvailableUsersRequest(user),
-  //       );
-  //     }
-
-  //     return { user, clubs, usersTotal };
-  //   }
-
-  //   async edit(dto: EditUserDto): Promise<User> {
-  //     const query = { ...dto };
-
-  //     if (dto.password) {
-  //       query.password = UserService.wrapPassword(dto.password);
-  //     } else {
-  //       delete query.password;
-  //     }
-
-  //     return this.userModel
-  //       .findByIdAndUpdate(dto._id, query, { new: true })
-  //       .populate('structure.club', '-_id')
-  //       .select({ password: 0, refresh: 0 });
-  //   }
-
-  //   async remove(dto: RemoveUserDto): Promise<any> {
-  //     return this.userModel
-  //       .findOneAndDelete({ _id: dto._id })
-  //       .select({ password: 0, refresh: 0 });
-  //   }
 }

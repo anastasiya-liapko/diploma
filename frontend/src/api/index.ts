@@ -1,5 +1,7 @@
 import { Unauth } from '@/domain/Auth/Unauth';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
+const router = useRouter()
 
 let baseURL = '/api';
 if (process.env.NODE_ENV === 'development') baseURL = 'http://localhost:8085/api'
@@ -22,6 +24,7 @@ const logout = async (): Promise<void> => {
   await server.post(`/auth/logout`, new Unauth(localStorage.getItem('os_rt')))
   localStorage.removeItem('os_at');
   localStorage.removeItem('os_rt');
+  router.push({ name: "Catalog" })
 }
 
 server.interceptors.request.use(async (request) => {

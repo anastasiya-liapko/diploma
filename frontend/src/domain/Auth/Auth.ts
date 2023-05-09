@@ -6,4 +6,8 @@ export class Auth {
     this.email = '';
     this.password = ''
   }
+
+  get isValid(): boolean {
+    return !!this.email && !!this.password;
+  }
 }

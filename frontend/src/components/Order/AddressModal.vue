@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import useAuth from '@/composable/useAuth';
-import { Auth } from '@/domain/Auth/Auth';
+import useAddress from '@/composable/useAddress';
 import { computed, ref } from 'vue';
+import { Address } from '@/domain/Address/Address';
 
 const props = defineProps<{
   modelValue: boolean;
@@ -9,12 +9,13 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
+  (e: "submit", value: Address): void;
 }>();
 
-const { login } = useAuth();
+const { put: putAddress } = useAddress();
 
 const isLoading = ref<boolean>(false);
-const data = ref<Auth>(new Auth())
+const data = ref<Address>(new Address())
 
 const dialog = computed({
   get(): boolean {
@@ -28,8 +29,9 @@ const dialog = computed({
 const submit = async (): Promise<void> => {
   isLoading.value = true;
 
-  const response = await login(data.value);
+  const response = await putAddress(data.value.putValues);
   if (response) {
+    emit('submit', response);
     dialog.value = false;
   }
 
@@ -41,21 +43,32 @@ const submit = async (): Promise<void> => {
   <v-dialog v-model="dialog" width="600">
     <v-card>
       <v-card-title>
-        <span class="text-h5">Войти или зарегистрироваться</span>
+        <span class="text-h5">Добавить новый адрес</span>
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-row>
+          <v-row dense>
             <v-col cols="12">
-              <v-text-field v-model="data.email" label="Электронная почта" required variant="outlined"></v-text-field>
+              <v-text-field v-model="data.title" label="Название адреса" required variant="outlined"></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field v-model="data.password" label="Пароль" type="password" required
+              <v-text-field v-model="data.city" label="Город" required variant="outlined"></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field v-model="data.street" label="Улица" required variant="outlined"></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field v-model="data.building" label="Дом" required variant="outlined"></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field v-model="data.apartment" label="Квартира" required variant="outlined"></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field v-model="data.index" label="Почтовый индекс" required type="number"
                 variant="outlined"></v-text-field>
             </v-col>
           </v-row>
         </v-container>
-        <small>Если вы не регистрировались ранее, придумайте логин и пароль для регистрации</small>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -64,7 +77,7 @@ const submit = async (): Promise<void> => {
         </v-btn>
         <v-btn class="text-none text-subtitle-1" color="indigo-accent-4" variant="flat" ripple :loading="isLoading"
           :disabled="!data.isValid" @click="submit">
-          Войти
+          Сохранить
         </v-btn>
       </v-card-actions>
     </v-card>

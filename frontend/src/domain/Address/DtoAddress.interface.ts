@@ -1,6 +1,5 @@
-import mongoose, { Document } from 'mongoose';
-
-export interface Address extends Document {
+export interface IDtoAddress {
+  _id: string;
   title: string;
   city: string;
   street: string;
