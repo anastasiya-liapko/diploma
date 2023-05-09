@@ -18,6 +18,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.setGlobalPrefix('api');
   app.use(json({ limit: '32mb' }));
   app.use(urlencoded({ limit: '32mb' }));
 

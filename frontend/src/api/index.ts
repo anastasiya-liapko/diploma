@@ -1,8 +1,8 @@
 import { Unauth } from '@/domain/Auth/Unauth';
 import axios from 'axios';
 
-let baseURL
-if (process.env.NODE_ENV === 'development') baseURL = 'http://localhost:8085'
+let baseURL = '/api';
+if (process.env.NODE_ENV === 'development') baseURL = 'http://localhost:8085/api'
 
 const server = axios.create({
   baseURL,
