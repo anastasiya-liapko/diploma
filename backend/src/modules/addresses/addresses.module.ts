@@ -13,5 +13,6 @@ import { UserSchema } from '../user/schema/user.schema';
   ],
   controllers: [AddressesController],
   providers: [AddressesService, UserService],
+  exports: [AddressesService],
 })
 export class AddressesModule { }

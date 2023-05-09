@@ -12,7 +12,7 @@ const emit = defineEmits<{
   (e: "submit", value: Address): void;
 }>();
 
-const { put: putAddress } = useAddress();
+const { post: postAddress } = useAddress();
 
 const isLoading = ref<boolean>(false);
 const data = ref<Address>(new Address())
@@ -29,7 +29,7 @@ const dialog = computed({
 const submit = async (): Promise<void> => {
   isLoading.value = true;
 
-  const response = await putAddress(data.value.putValues);
+  const response = await postAddress(data.value.putValues);
   if (response) {
     emit('submit', response);
     dialog.value = false;

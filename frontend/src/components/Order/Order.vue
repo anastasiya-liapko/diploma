@@ -3,12 +3,14 @@ import useAddress from '@/composable/useAddress';
 import { Address } from '@/domain/Address/Address';
 import AddressModal from "@/components/Order/AddressModal.vue"
 import { ref } from 'vue';
+import useStore from '@/composable/useStore';
 
 const { get: getAddresses } = useAddress();
+const { get: getStore } = useStore();
 
 const isLoading = ref<boolean>(true);
 const userAddresses = ref<Address[]>([])
-const shopAddresses = ref<Address[]>([])
+const storeAddresses = ref<Address[]>([])
 
 const isAddressModalVisible = ref<boolean>(false);
 const pickedAddress = ref<string | null>(null);
@@ -17,6 +19,8 @@ const load = async (): Promise<void> => {
   isLoading.value = true;
   userAddresses.value = await getAddresses();
   pickedAddress.value = userAddresses.value[0]?._id || null;
+  const store = await getStore();
+  storeAddresses.value = store.addresses
   isLoading.value = false;
 }
 
@@ -37,7 +41,8 @@ const formatAddress = (address: Address): string => {
         <v-col cols="12">
           <v-sheet class="ma-1 pa-4" rounded :elevation="2">
             <h2>Самовывоз из магазина</h2>
-            <v-radio label="1" color="indigo-accent-4" value="1"></v-radio>
+            <v-radio v-for="address in storeAddresses" :key="address._id" :label="formatAddress(address)"
+              color="indigo-accent-4" :value="address._id"></v-radio>
           </v-sheet>
         </v-col>
       </v-row>

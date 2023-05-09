@@ -6,17 +6,5 @@ import { UserService } from './user.service';
 @ApiBearerAuth()
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
-
-  //   @Post('add')
-  //   @Modules([{ name: 'Users', permission: ModulePermission.WRITE }])
-  //   @UseGuards(JwtAuthGuard, ModulesGuard)
-  //   @ApiOperation({ summary: 'Создание пользователя' })
-  //   async createUser(@Request() req, @Body() dto: CreateUserDto) {
-  //     try {
-  //       return this.userService.create(dto);
-  //     } catch (e) {
-  //       throw e;
-  //     }
-  //   }
+  constructor(private userService: UserService) { }
 }

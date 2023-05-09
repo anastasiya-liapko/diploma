@@ -6,6 +6,7 @@ import {
   Request,
   Put,
   Body,
+  Post,
 } from '@nestjs/common';
 import {
   ApiOperation,
@@ -45,7 +46,7 @@ export class AddressesController {
     }
   }
 
-  @Put('/')
+  @Post('/')
   @ApiOperation({ summary: 'Добавление адреса' })
   @ApiBody({
     type: PutAddressRequestDto,

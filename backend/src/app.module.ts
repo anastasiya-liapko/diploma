@@ -20,9 +20,11 @@ import { AddressesModule } from './modules/addresses/addresses.module';
 import { CartModule } from './modules/cart/cart.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { CatalogModule } from './modules/catalog/catalog.module';
+import { StoreModule } from './modules/store/store.module';
 
 @Module({
   imports: [
+    StoreModule,
     UserModule,
     AuthModule,
     FilesModule,

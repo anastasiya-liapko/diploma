@@ -1,7 +1,6 @@
 import { Unauth } from '@/domain/Auth/Unauth';
+import router from '@/router';
 import axios from 'axios';
-import { useRouter } from 'vue-router';
-const router = useRouter()
 
 let baseURL = '/api';
 if (process.env.NODE_ENV === 'development') baseURL = 'http://localhost:8085/api'

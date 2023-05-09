@@ -22,9 +22,9 @@ export default () => {
     }
   }
 
-  const put = async (address: any): Promise<Address | false> => {
+  const post = async (address: any): Promise<Address | false> => {
     try {
-      const response = await addressApi.put(address);
+      const response = await addressApi.post(address);
       return new Address(response.data);
     } catch (e) {
       console.log(e)
@@ -34,6 +34,6 @@ export default () => {
 
   return {
     get,
-    put
+    post
   }
 };

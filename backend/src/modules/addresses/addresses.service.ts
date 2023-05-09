@@ -32,4 +32,13 @@ export class AddressesService {
       throw new BadRequestException(err.message);
     }
   };
+
+  public putMany = async (dto: PutAddressRequestDto[]): Promise<any> => {
+    const res = await this.addressModel.collection.insertMany(dto);
+    return Object.values(res.insertedIds);
+  };
+
+  public deleteMany = async (dto: any[]): Promise<any> => {
+    return await this.addressModel.collection.deleteMany({ _id: { $in: dto } });
+  };
 }

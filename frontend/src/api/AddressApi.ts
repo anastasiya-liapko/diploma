@@ -8,7 +8,7 @@ export class AddressApi {
     return await server.get('/addresses')
   }
 
-  public put = async (address: Address): Promise<AxiosResponse<IDtoAddress>> => {
-    return await server.put('/addresses', { ...address })
+  public post = async (address: Address): Promise<AxiosResponse<IDtoAddress>> => {
+    return await server.post('/addresses', { ...address })
   }
 } 
