@@ -5,7 +5,8 @@ import { IDtoOrder } from "./DtoOrder";
 import { EStatus } from "./Status.enum";
 
 export class Order {
-  public _id: string;
+  public _id: number;
+  public date: string;
   public goods: CartGood[];
   public total_price: number;
   public status: EStatus;
@@ -14,6 +15,7 @@ export class Order {
 
   constructor(dto: IDtoOrder) {
     this._id = dto._id;
+    this.date = dto.date;
     this.goods = dto.goods;
     this.total_price = dto.total_price;
     this.status = dto.status;

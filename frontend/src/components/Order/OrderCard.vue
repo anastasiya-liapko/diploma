@@ -10,16 +10,34 @@ const props = defineProps<{
 const formatAddress = (address: Address): string => {
   return `${address.title}: ${address.city}, ${address.street}, ${address.building}/${address.apartment}, ${address.index}`
 }
+
+// DD.MM.YYYY
+const DATE_OPTIONS: Intl.DateTimeFormatOptions = {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+};
+
+const formatDate = (value: string): string => {
+  const seconds = new Date(Date.parse(value));
+  const day = seconds.toLocaleString("ru-RU", DATE_OPTIONS);
+  return day;
+}
 </script>
 
 <template>
   <v-sheet border="lg opacity-12" class="text-body-2 mx-auto" max-width="750" rounded="lg">
     <v-container fluid>
       <v-row class="mb-4">
-        <v-col cols="8">{{ formatAddress(data.address) }}</v-col>
+        <v-col cols="8">№{{ data._id }}</v-col>
         <v-col class="text-right" cols="4">{{ StatusLabels[data.status] }}</v-col>
       </v-row>
-      <v-divider></v-divider>
+      <v-divider :thickness="1"></v-divider>
+      <v-row class="mt-4 mb-4">
+        <v-col cols="8">{{ formatAddress(data.address) }}</v-col>
+        <v-col class="text-right" cols="4">{{ formatDate(data.date) }}</v-col>
+      </v-row>
+      <v-divider :thickness="1"></v-divider>
       <v-row class="mt-2 mb-2 d-flex align-center" v-for="good in data.goods" :key="good.good._id">
         <v-col cols="2">
           <v-img :src="good.good.imageLink" width="100px" contain></v-img>

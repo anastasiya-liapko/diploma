@@ -18,7 +18,7 @@ const load = async (): Promise<void> => {
   isLoading.value = true;
 
   try {
-    const response = await get(props.id);
+    const response = await get(+props.id);
 
     if (response) {
       data.value = response

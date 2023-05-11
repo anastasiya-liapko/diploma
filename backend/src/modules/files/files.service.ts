@@ -7,6 +7,7 @@ import { Category } from '../categories/category.interface';
 import { Manufacturer } from '../manufacturers/manufacturer.interface';
 import { UploadResponseDto } from './dto/upload.response.dto';
 import { Cart } from '../cart/cart.interface';
+import { Order } from '../orders/order.interface';
 const XLSX = require('xlsx');
 const path = require('path');
 
@@ -15,6 +16,7 @@ export class FilesService {
   constructor(
     @InjectModel('Good') private readonly goodModel: Model<Good>,
     @InjectModel('Cart') private readonly cartModel: Model<Cart>,
+    @InjectModel('Order') private readonly orderModel: Model<Order>,
     @InjectModel('Category')
     private readonly categoryModel: Model<Category>,
     @InjectModel('Manufacturer')
@@ -34,6 +36,15 @@ export class FilesService {
     } catch (e) {
       Logger.error(
         `CART COLLECTION DROP -- ERROR: ${e.response ? JSON.stringify(e.response) : e
+        }`,
+      );
+    }
+
+    try {
+      await this.orderModel.collection.drop();
+    } catch (e) {
+      Logger.error(
+        `ORDER COLLECTION DROP -- ERROR: ${e.response ? JSON.stringify(e.response) : e
         }`,
       );
     }

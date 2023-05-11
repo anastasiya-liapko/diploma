@@ -13,6 +13,8 @@ export enum EDeliveryType {
 }
 
 export interface Order extends Document {
+  _id: number;
+  date: mongoose.Schema.Types.Date;
   goods: [
     {
       count: number;

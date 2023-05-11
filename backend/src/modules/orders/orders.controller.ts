@@ -39,7 +39,7 @@ export class OrdersController {
   @UseGuards(BasicAuthGuard, JwtAuthGuard)
   async get(
     @Request() req,
-    @Param('id') id: string,
+    @Param('id') id: number,
   ): Promise<PostOrderResponseDto> {
     try {
       return await this.ordersService.getById(req.user, id);

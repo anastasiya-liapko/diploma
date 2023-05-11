@@ -3,6 +3,8 @@ import { EDeliveryType, EOrderStatus } from '../order.interface';
 
 export const OrderSchema = new mongoose.Schema(
   {
+    _id: Number,
+    date: mongoose.Schema.Types.Date,
     goods: [
       {
         _id: false,

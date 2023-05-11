@@ -6,6 +6,7 @@ import { GoodSchema } from '../goods/schema/good.schema';
 import { CategorySchema } from '../categories/schema/category.schema';
 import { ManufacturerSchema } from '../manufacturers/schema/manufacturer.schema';
 import { CartSchema } from '../cart/schema/cart.schema';
+import { OrderSchema } from '../orders/schema/order.schema';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CartSchema } from '../cart/schema/cart.schema';
       { name: 'Category', schema: CategorySchema },
       { name: 'Manufacturer', schema: ManufacturerSchema },
       { name: 'Cart', schema: CartSchema },
+      { name: 'Order', schema: OrderSchema },
     ]),
   ],
   controllers: [FilesController],

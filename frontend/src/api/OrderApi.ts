@@ -4,7 +4,7 @@ import { OrderForm } from '@/domain/Order/OrderForm';
 import { AxiosResponse } from 'axios';
 
 export class OrderApi {
-  public getById = async (_id: string): Promise<AxiosResponse<IDtoOrder>> => {
+  public getById = async (_id: number): Promise<AxiosResponse<IDtoOrder>> => {
     return await server.get(`/orders/${_id}`)
   }
 
