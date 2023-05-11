@@ -30,14 +30,32 @@ import { PostOrderResponseDto } from './dto/post.response.dto';
 export class OrdersController {
   constructor(private ordersService: OrdersService) { }
 
-  @Get('/:id')
-  @ApiOperation({ summary: 'Поиск заказа' })
+  @Get('/')
+  @ApiOperation({ summary: 'Получение списка заказов пользователя' })
   @ApiOkResponse({
-    description: 'Заказ',
+    description: 'Список заказов пользователя',
     type: PostOrderResponseDto,
   })
   @UseGuards(BasicAuthGuard, JwtAuthGuard)
-  async get(
+  async get(@Request() req): Promise<PostOrderResponseDto[]> {
+    try {
+      return await this.ordersService.get(req.user);
+    } catch (e) {
+      Logger.error(
+        `ORDER GET -- ERROR: ${e.response ? JSON.stringify(e.response) : e}`,
+      );
+      throw e;
+    }
+  }
+
+  @Get('/:id')
+  @ApiOperation({ summary: 'Поиск заказа пользователя по айди' })
+  @ApiOkResponse({
+    description: 'Заказ пользователя',
+    type: PostOrderResponseDto,
+  })
+  @UseGuards(BasicAuthGuard, JwtAuthGuard)
+  async getById(
     @Request() req,
     @Param('id') id: number,
   ): Promise<PostOrderResponseDto> {
@@ -45,7 +63,8 @@ export class OrdersController {
       return await this.ordersService.getById(req.user, id);
     } catch (e) {
       Logger.error(
-        `ORDER GET -- ERROR: ${e.response ? JSON.stringify(e.response) : e}`,
+        `ORDER GET BY ID -- ERROR: ${e.response ? JSON.stringify(e.response) : e
+        }`,
       );
       throw e;
     }

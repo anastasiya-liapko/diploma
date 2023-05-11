@@ -5,7 +5,19 @@ import { OrderForm } from "@/domain/Order/OrderForm";
 export default () => {
   const orderApi = new OrderApi();
 
-  const get = async (_id: number): Promise<Order | false> => {
+  const get = async (): Promise<Order[] | false> => {
+    try {
+      const response = await orderApi.get();
+
+      const orders = response.data.map(item => new Order(item));
+      return orders;
+    } catch (e) {
+      console.log(e);
+      return false
+    }
+  }
+
+  const getById = async (_id: number): Promise<Order | false> => {
     try {
       const response = await orderApi.getById(_id);
       return new Order(response.data);
@@ -27,6 +39,7 @@ export default () => {
 
   return {
     get,
+    getById,
     post
   }
 };

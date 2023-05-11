@@ -1,24 +1,18 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import useCart from '@/composable/useCart';
 import useOrder from '@/composable/useOrder';
 import { Order } from '@/domain/Order/Order';
 import OrderCard from "@/components/Order/OrderCard.vue"
 
-const props = defineProps<{
-  id: string;
-}>();
-
-const data = ref<Order>();
+const data = ref<Order[]>();
 const isLoading = ref<boolean>(true);
-const { getById } = useOrder();
-const { get: getCart } = useCart();
+const { get } = useOrder();
 
 const load = async (): Promise<void> => {
   isLoading.value = true;
 
   try {
-    const response = await getById(+props.id);
+    const response = await get();
 
     if (response) {
       data.value = response
@@ -31,14 +25,15 @@ const load = async (): Promise<void> => {
 }
 
 load();
-getCart();
 </script>
 
 <template>
   <v-container fluid>
-    <h1 v-if="!isLoading && data" class="text-center mx-auto text-h5 pb-6 pt-6">Заказ успешно оформлен</h1>
+    <h1 v-if="!isLoading && data" class="text-center mx-auto text-h5 pb-6 pt-6">История заказов</h1>
     <v-sheet v-if="isLoading" max-width="750" class="bg-grey-lighten-3 text-body-2 mx-auto" rounded="lg"></v-sheet>
-    <OrderCard v-if="data" :data="data" />
+    <div v-for="item in data" :key="item._id" class="mb-6">
+      <OrderCard v-if="data" :data="item" />
+    </div>
   </v-container>
 </template>
 

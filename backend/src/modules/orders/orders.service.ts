@@ -13,19 +13,25 @@ export class OrdersService {
     private cartService: CartService,
   ) { }
 
+  public get = async (user: User): Promise<any> => {
+    const res = await this.orderModel
+      .find({ user: user._id })
+      .sort({ date: -1 })
+      .populate({ path: 'address' })
+      .populate({ path: 'user' })
+      .populate({ path: 'goods.good' });
+
+    return res;
+  };
+
   public getById = async (user: User, _id: number): Promise<any> => {
     const res = await this.orderModel
-      .find({ _id })
+      .find({ user: user._id, _id })
       .populate({ path: 'address' })
       .populate({ path: 'user' })
       .populate({ path: 'goods.good' });
     return res[0];
   };
-
-  // public getAll = async (
-  //   user: User,
-  //   dto: PostOrderRequestDto,
-  // ): Promise<any> => { };
 
   public post = async (user: User, dto: PostOrderRequestDto): Promise<any> => {
     const cart = await this.cartService.get(user);
@@ -38,6 +44,7 @@ export class OrdersService {
     const newOrder = new this.orderModel({
       ...cart,
       ...dto,
+      user: user._id,
       status: EOrderStatus.NEW,
       date,
       _id: lastOrder.length ? (lastOrder[0]._id += 1) : 1,

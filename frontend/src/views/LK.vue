@@ -2,6 +2,7 @@
 import { useAuthStore } from "@/store/auth";
 import { watchEffect } from "vue";
 import { useRouter } from "vue-router";
+import LK from "@/components/LK/LK.vue"
 
 const authStore = useAuthStore();
 const router = useRouter()
@@ -14,6 +15,6 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div>lk</div>
+  <LK />
 </template>
 
