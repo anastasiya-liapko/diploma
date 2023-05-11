@@ -50,18 +50,33 @@ import { StoreModule } from './modules/store/store.module';
     MailerModule.forRootAsync({
       useFactory: () => ({
         transport: {
-          host: 'smtp.yandex.ru',
+          host: 'mail.hostland.ru',
           port: 465,
           auth: {
-            user: 'reports@bms.group',
-            pass: 'hqKip1whqvwZ',
+            user: 'host1858759@aliapko.ru',
+            pass: 'BwbGWfAmnv',
           },
         },
         defaults: {
-          from: 'reports@bms.group',
+          from: 'host1858759@aliapko.ru',
         },
       }),
     }),
+    // MailerModule.forRootAsync({
+    //   useFactory: () => ({
+    //     transport: {
+    //       host: 'in-v3.mailjet.com',
+    //       port: 587,
+    //       auth: {
+    //         user: '150f4a921ceab7ef0004c3c62d841ed9',
+    //         pass: '3a820843cd4ede2ba27f92699ab7b99c',
+    //       },
+    //     },
+    //     defaults: {
+    //       from: 'anastasiya.liapko@gmail.com',
+    //     },
+    //   }),
+    // }),
   ],
   controllers: [AppController],
   providers: [AppService, JwtStrategy, WsStrategy],
