@@ -6,6 +6,8 @@ import { User } from '../user/user.interface';
 import { PostOrderRequestDto } from './dto/post.resuest.dto';
 import { CartService } from '../cart/cart.service';
 import { MailerService } from '@nestjs-modules/mailer';
+import { JSDOM } from 'jsdom';
+import * as fs from 'fs';
 
 @Injectable()
 export class OrdersService {
@@ -13,7 +15,7 @@ export class OrdersService {
     @InjectModel('Order') private readonly orderModel: Model<Order>,
     private cartService: CartService,
     private readonly mailerService: MailerService,
-  ) { }
+  ) {}
 
   public get = async (user: User): Promise<any> => {
     const res = await this.orderModel
@@ -79,13 +81,30 @@ export class OrdersService {
     //   <br>
     //   Текущий баланс ${certificate.integration}: ${balance}
     // `;
-    const message = 'проверка почты еще раз';
+    // сохраняем в переменную шаблон письма
+    const file = fs.readFileSync('html/email.html', 'utf8');
+    // используем jsdom для работы с html (https://www.npmjs.com/package/jsdom)
+    const dom = new JSDOM(file);
+    // добавляем ссылку на чек в html
+    dom.window.document
+      .querySelector('#lk_link')
+      .setAttribute('href', `aliapko.ru/orders`);
+    dom.window.document.querySelector('#order_id').innerHTML = ` №${order._id}`;
+    // const message = 'проверка почты еще раз';
 
     await this.mailerService.sendMail({
       from: `"СтройДом" <host1858759@aliapko.ru>`,
       to: order.user.email,
-      subject: 'Новый заказ',
-      html: message,
+      subject: 'Мы получили ваш заказ',
+      // html: message,
+      html: dom.serialize(),
+      attachments: [
+        {
+          filename: 'logo.png',
+          path: 'html/img/logo.png',
+          cid: 'logo', //same cid value as in the html img src
+        },
+      ],
     });
     Logger.log(
       `NOTIFICATION ORDER SEND TO CLIENT EMAIL: ${JSON.stringify(
