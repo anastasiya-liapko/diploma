@@ -2,7 +2,7 @@
 import useAuth from "@/composable/useAuth";
 import { useAuthStore } from "@/store/auth";
 import { useCartStore } from "@/store/cart";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
@@ -29,6 +29,16 @@ const goToLK = (): void => {
     authStore.isAuthModalVisible = !authStore.isAuthModalVisible
   }
 }
+
+watch(
+  () => route.query,
+  async (newValue) => {
+    if (route.query.search?.toString() !== searchValue.value) {
+      searchValue.value = route.query.search?.toString() || "";
+    }
+  },
+  { deep: true }
+);
 </script>
 
 <template>
