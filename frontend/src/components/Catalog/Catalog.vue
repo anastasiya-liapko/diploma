@@ -5,6 +5,7 @@ import InfiniteScroll from "@/components/InfiniteScroll.vue"
 import { CatalogApi } from "@/api/CatalogApi"
 import CatalogCard from "@/components/Catalog/CatalogCard.vue"
 import { useRoute } from 'vue-router';
+import NotFound from "@/components/NotFound.vue";
 
 const route = useRoute();
 
@@ -49,7 +50,10 @@ watch(
   <v-container fluid>
     <h1 class="text-h3 pb-6 pt-6">Каталог товаров</h1>
     <v-row dense>
-      <v-col v-for="item in list" :key="item.id" cols="12" sm="6" md="4" lg="3" xl=2>
+      <NotFound v-if="!list.length && !isLoading" icon="mdi-emoticon-sad-outline" title="Упс...Ничего не найдено"
+        description="Попробуйте использовать другие параметры поиска" />
+
+      <v-col v-else v-for="item in list" :key="item.id" cols="12" sm="6" md="4" lg="3" xl=2>
         <v-sheet class="ma-1" rounded :elevation="2">
           <CatalogCard :data="item" />
         </v-sheet>

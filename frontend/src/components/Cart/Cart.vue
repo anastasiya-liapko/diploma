@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import NotFound from "@/components/NotFound.vue"
+import NotFound from "@/components/NotFound.vue";
 import useCart from "@/composable/useCart";
 import { useCartStore } from "@/store/cart";
 

@@ -4,7 +4,7 @@ defineProps<{
   icon: string;
   title: string;
   description?: string;
-  buttonText: string;
+  buttonText?: string;
 }>();
 </script>
 
@@ -16,7 +16,8 @@ defineProps<{
 
     <p class="mb-4 text-medium-emphasis text-body-2">{{ description }}</p>
 
-    <v-btn class="text-none mt-5" color="indigo-accent-4" rounded ripple size="x-large" :to="{ name: 'Catalog' }">
+    <v-btn v-if="buttonText" class="text-none mt-5" color="indigo-accent-4" rounded ripple size="x-large"
+      :to="{ name: 'Catalog' }">
       {{ buttonText }}
     </v-btn>
   </v-sheet>
