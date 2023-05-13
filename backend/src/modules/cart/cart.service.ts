@@ -25,19 +25,41 @@ export class CartService {
         },
       });
 
+      // request.push({
+      //   $set: {
+      //     items: {
+      //       $map: {
+      //         input: '$items',
+      //         in: {
+      //           $mergeObjects: [
+      //             '$$this',
+      //             {
+      //               item: {
+      //                 $arrayElemAt: [
+      //                   '$goods',
+      //                   { $indexOfArray: ['$goods.good', '$$this._id'] },
+      //                 ],
+      //               },
+      //             },
+      //           ],
+      //         },
+      //       },
+      //     },
+      //   },
+      // });
       request.push({
         $set: {
-          items: {
+          goods: {
             $map: {
-              input: '$items',
+              input: '$goods',
               in: {
                 $mergeObjects: [
                   '$$this',
                   {
-                    item: {
+                    good: {
                       $arrayElemAt: [
-                        '$goods',
-                        { $indexOfArray: ['$goods.good', '$$this._id'] },
+                        '$items',
+                        { $indexOfArray: ['$items._id', '$$this.good'] },
                       ],
                     },
                   },
@@ -53,48 +75,54 @@ export class CartService {
         .allowDiskUse(true)
         .exec();
 
-      if (!data.length) {
-        const newCart = new this.cartModel({
-          user: new mongoose.Types.ObjectId(user._id),
-          goods: [],
-        });
-        await newCart.save();
+      // if (!data.length) {
+      //   const newCart = new this.cartModel({
+      //     user: new mongoose.Types.ObjectId(user._id),
+      //     goods: [],
+      //   });
+      //   await newCart.save();
 
+      //   return {
+      //     total_price: 0,
+      //     goods: [],
+      //   };
+      // } else {
+      //   const goods = data[0].items.map((item) => {
+      //     const v = {
+      //       count: item.item.count,
+      //       good: item,
+      //     };
+      //     delete v.good.item;
+      //     return v;
+      //   });
+
+      //   data[0].goods = goods;
+
+      //   const query = { ...data[0] };
+      //   query.goods = query.goods.map((item) => {
+      //     return {
+      //       count: item.count,
+      //       good: item.good._id,
+      //     };
+      //   });
+      //   await this.cartModel.findOneAndUpdate(
+      //     {
+      //       user: new mongoose.Types.ObjectId(user._id),
+      //     },
+      //     {
+      //       $set: query,
+      //     },
+      //     {
+      //       new: true,
+      //       lean: true,
+      //     },
+      //   );
+      // }
+      if (!data.length) {
         return {
           total_price: 0,
           goods: [],
         };
-      } else {
-        const goods = data[0].items.map((item) => {
-          const v = {
-            count: item.item.count,
-            good: item,
-          };
-          delete v.good.item;
-          return v;
-        });
-
-        data[0].goods = goods;
-
-        const query = { ...data[0] };
-        query.goods = query.goods.map((item) => {
-          return {
-            count: item.count,
-            good: item.good._id,
-          };
-        });
-        await this.cartModel.findOneAndUpdate(
-          {
-            user: new mongoose.Types.ObjectId(user._id),
-          },
-          {
-            $set: query,
-          },
-          {
-            new: true,
-            lean: true,
-          },
-        );
       }
 
       const total_price = data[0].goods.reduce((acc: number, item: any, i) => {

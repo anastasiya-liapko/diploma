@@ -3,7 +3,6 @@ import NotFound from "@/components/NotFound.vue";
 import useCart from "@/composable/useCart";
 import { useCartStore } from "@/store/cart";
 
-// TODO: добавить итого и перейти к оформлению
 const cartStore = useCartStore();
 const { get, patch } = useCart();
 </script>
