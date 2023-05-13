@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { Pagination } from "@/infrastructure/Pagination/Pagination"
 import InfiniteScroll from "@/components/InfiniteScroll.vue"
 import { CatalogApi } from "@/api/CatalogApi"
 import CatalogCard from "@/components/Catalog/CatalogCard.vue"
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const api = new CatalogApi()
 const list = ref<any>([]);
@@ -15,7 +18,7 @@ const load = async (): Promise<void> => {
   isLoading.value = true;
 
   try {
-    const chunk = await api.search(pagination.value);
+    const chunk = await api.search(pagination.value, route.query.search?.toString() || "");
 
     if (chunk.data.data.length < pagination.value.size) {
       isLoaded.value = true;
@@ -29,6 +32,17 @@ const load = async (): Promise<void> => {
     isLoading.value = false;
   }
 }
+
+watch(
+  () => route.query,
+  async (newValue) => {
+    isLoaded.value = false;
+    list.value = [];
+    pagination.value.page = 0;
+    load()
+  },
+  { deep: true }
+);
 </script>
 
 <template>
