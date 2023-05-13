@@ -71,16 +71,6 @@ export class OrdersService {
   }
 
   private sendMail = async (order: any): Promise<any> => {
-    // const message = `
-    //   На балансе <strong>${certificate.integration}</strong> партнера <strong>${process.env.PROGRAMM}</strong> не достаточно средств для оформления сертификата.<br>
-    //   <br>
-    //   Сертификат<br>
-    //   ID: ${certificateId}<br>
-    //   Name: ${certificate.name}<br>
-    //   Nominal: ${certificate.nominal}<br>
-    //   <br>
-    //   Текущий баланс ${certificate.integration}: ${balance}
-    // `;
     // сохраняем в переменную шаблон письма
     const file = fs.readFileSync('html/email.html', 'utf8');
     // используем jsdom для работы с html (https://www.npmjs.com/package/jsdom)
@@ -88,15 +78,13 @@ export class OrdersService {
     // добавляем ссылку на чек в html
     dom.window.document
       .querySelector('#lk_link')
-      .setAttribute('href', `aliapko.ru/orders`);
+      .setAttribute('href', `https://aliapko.ru/lk`);
     dom.window.document.querySelector('#order_id').innerHTML = ` №${order._id}`;
-    // const message = 'проверка почты еще раз';
 
     await this.mailerService.sendMail({
       from: `"СтройДом" <host1858759@aliapko.ru>`,
       to: order.user.email,
       subject: 'Мы получили ваш заказ',
-      // html: message,
       html: dom.serialize(),
       attachments: [
         {
