@@ -47,13 +47,13 @@ watch(
 </script>
 
 <template>
-  <v-container fluid>
+  <v-container class="catalog">
     <h1 class="text-h5 text-sm-h4 text-md-h3 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">Каталог товаров</h1>
     <v-row dense>
       <NotFound v-if="!list.length && !isLoading" icon="mdi-emoticon-sad-outline" title="Упс...Ничего не найдено"
         description="Попробуйте использовать другие параметры поиска" />
 
-      <v-col v-else v-for="item in list" :key="item.id" cols="12" sm="6" md="4" lg="3" xl=2>
+      <v-col v-else v-for="item in list" :key="item.id" cols="12" sm="6" md="6" lg="4" xl="3">
         <v-sheet class="ma-1" rounded :elevation="2">
           <CatalogCard :data="item" />
         </v-sheet>

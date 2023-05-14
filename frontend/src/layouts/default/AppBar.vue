@@ -42,44 +42,48 @@ watch(
 </script>
 
 <template>
-  <v-app-bar class="bar" color="indigo-accent-4">
+  <v-app-bar class="bar" color="indigo-accent-4" app>
+    <v-container>
+      <v-row class="ml-0">
 
-    <v-app-bar-title>
-      <router-link :to="{ name: 'Catalog' }">
-        <v-img class="bar__logo" :width="100" :height="20" contain src="@/assets/logo_white.svg"></v-img>
-        <v-img class="bar__logo bar__logo_mobile" :width="20" :height="20" contain src="@/assets/logo_mobile.svg"></v-img>
-      </router-link>
-    </v-app-bar-title>
+        <v-app-bar-title>
+          <router-link :to="{ name: 'Catalog' }">
+            <v-img class="bar__logo" :width="100" :height="20" contain src="@/assets/logo_white.svg"></v-img>
+            <v-img class="bar__logo bar__logo_mobile" :width="20" :height="20" contain
+              src="@/assets/logo_mobile.svg"></v-img>
+          </router-link>
+        </v-app-bar-title>
 
-    <div class="bar__search mx-auto">
-      <v-text-field v-model="searchValue" density="compact" variant="outlined" label="Искать"
-        append-inner-icon="mdi-magnify" single-line hide-details max-width="750" @click:append-inner="search"
-        @keyup.enter="search" />
-    </div>
+        <div class="bar__search mx-auto">
+          <v-text-field v-model="searchValue" density="compact" variant="outlined" label="Искать"
+            append-inner-icon="mdi-magnify" single-line hide-details max-width="750" @click:append-inner="search"
+            @keyup.enter="search" />
+        </div>
 
-    <div class="bar__actions">
-      <v-btn icon @click="gotToCart">
-        <v-badge :content="cartStore.totalCount" color="error">
-          <v-icon>mdi-cart-outline</v-icon>
-        </v-badge>
-      </v-btn>
+        <div class="bar__actions">
+          <v-btn icon @click="gotToCart">
+            <v-badge :content="cartStore.totalCount" color="error">
+              <v-icon>mdi-cart-outline</v-icon>
+            </v-badge>
+          </v-btn>
 
-      <v-btn id="menu-activator" icon @click="goToLK">
-        <v-icon>mdi-account-outline</v-icon>
-      </v-btn>
-    </div>
+          <v-btn id="menu-activator" icon @click="goToLK">
+            <v-icon>mdi-account-outline</v-icon>
+          </v-btn>
+        </div>
 
-    <v-menu :disabled="!authStore.isAuthorized" activator="#menu-activator">
-      <v-list>
-        <v-list-item value="lk" ripple append-icon="mdi-shopping-outline" :to="{ name: 'LK' }">
-          <v-list-item-title>мои заказы</v-list-item-title>
-        </v-list-item>
-        <v-list-item value="logout" ripple append-icon="mdi-logout" @click="logout">
-          <v-list-item-title>выйти</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-
+        <v-menu :disabled="!authStore.isAuthorized" activator="#menu-activator">
+          <v-list>
+            <v-list-item value="lk" ripple append-icon="mdi-shopping-outline" :to="{ name: 'LK' }">
+              <v-list-item-title>мои заказы</v-list-item-title>
+            </v-list-item>
+            <v-list-item value="logout" ripple append-icon="mdi-logout" @click="logout">
+              <v-list-item-title>выйти</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-row>
+    </v-container>
   </v-app-bar>
 </template>
 
@@ -87,6 +91,8 @@ watch(
 .bar {
   .v-toolbar-title {
     flex: none !important;
+    display: flex !important;
+    align-items: center;
 
     .bar__logo {
       display: none;

@@ -103,3 +103,11 @@ const submit = async (): Promise<void> => {
     </v-row>
   </v-container>
 </template>
+
+<style lang="scss">
+.order {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>

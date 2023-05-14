@@ -8,7 +8,7 @@ const { get, patch } = useCart();
 </script>
 
 <template>
-  <v-container class="cart" fluid>
+  <v-container class="cart" fluid max-width="750">
     <h1 v-if="cartStore.cart.goods.length && !cartStore.isLoading"
       class="text-h5 text-sm-h4 text-md-h3 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">
       Корзина ({{
@@ -17,7 +17,7 @@ const { get, patch } = useCart();
     <NotFound v-if="!cartStore.cart.goods.length && !cartStore.isLoading" icon="mdi-cart-outline"
       title="В корзине ничего нет" description="Добавьте товары в корзину" button-text="в каталог" />
 
-    <v-row v-else-if="!cartStore.isLoading" dense>
+    <v-row v-else-if="!cartStore.isLoading" dense max-width="750">
       <v-col v-for="item in cartStore.cart.goods" :key="item.good.id" cols="12">
         <v-sheet class="ma-1" rounded :elevation="2">
           <v-card class="catalog-card">
@@ -72,7 +72,7 @@ const { get, patch } = useCart();
     </v-row>
 
     <div v-if="cartStore.cart.goods.length && !cartStore.isLoading">
-      <v-row>
+      <v-row class="text-h6 mt-3">
         <v-col cols="6">
           Количество
         </v-col>
@@ -80,7 +80,7 @@ const { get, patch } = useCart();
           {{ cartStore.totalCount }} ед.
         </v-col>
       </v-row>
-      <v-row>
+      <v-row class="text-h6">
         <v-col cols="6">
           Стоимость товаров
         </v-col>
@@ -103,6 +103,10 @@ const { get, patch } = useCart();
 
 <style lang="scss">
 .cart {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+
   &__actions {
     max-width: 20rem;
   }
