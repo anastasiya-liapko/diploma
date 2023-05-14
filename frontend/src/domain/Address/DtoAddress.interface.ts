@@ -4,5 +4,4 @@ export interface IDtoAddress {
   street: string;
   building: string;
   apartment: string;
-  index: number;
 }

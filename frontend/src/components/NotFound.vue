@@ -14,9 +14,9 @@ defineProps<{
 
     <h2 class="text-h5 mb-6">{{ title }}</h2>
 
-    <p class="mb-4 text-medium-emphasis text-body-2">{{ description }}</p>
+    <p class="mb-7 text-medium-emphasis text-body-2">{{ description }}</p>
 
-    <v-btn v-if="buttonText" class="text-none mt-5" color="indigo-accent-4" rounded ripple size="x-large"
+    <v-btn v-if="buttonText" color="indigo-accent-4" class="text-none text-subtitle-1" ripple size="large" variant="flat"
       :to="{ name: 'Catalog' }">
       {{ buttonText }}
     </v-btn>

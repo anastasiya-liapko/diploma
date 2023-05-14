@@ -30,7 +30,7 @@ load();
 <template>
   <v-container fluid>
     <h1 v-if="!isLoading && data"
-      class="text-center mx-auto text-h5 text-sm-h4 text-md-h3 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">История заказов
+      class="text-center mx-auto text-h5 text-sm-h4 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">История заказов
     </h1>
     <v-sheet v-if="isLoading" max-width="750" class="bg-grey-lighten-3 text-body-2 mx-auto" rounded="lg"></v-sheet>
     <div v-for="item in data" :key="item._id" class="mb-6">

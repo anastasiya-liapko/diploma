@@ -48,13 +48,20 @@ watch(
 
 <template>
   <v-container class="catalog">
-    <h1 class="text-h5 text-sm-h4 text-md-h3 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">Каталог товаров</h1>
+    <v-carousel v-if="!route.query.search" class="slider">
+      <v-carousel-item src="https://ir.ozone.ru/s3/cms/53/t4c/wc600/252x160_1.jpg" cover></v-carousel-item>
+
+      <v-carousel-item src="https://ir.ozone.ru/s3/cms/93/td3/wc600/252x160_2.jpgg" cover></v-carousel-item>
+
+      <v-carousel-item src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover></v-carousel-item>
+    </v-carousel>
+    <h1 class="text-h5 text-sm-h4 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">Каталог товаров</h1>
     <v-row dense>
       <NotFound v-if="!list.length && !isLoading" icon="mdi-emoticon-sad-outline" title="Упс...Ничего не найдено"
         description="Попробуйте использовать другие параметры поиска" />
 
       <v-col v-else v-for="item in list" :key="item.id" cols="12" sm="6" md="6" lg="4" xl="3">
-        <v-sheet class="ma-1" rounded :elevation="2">
+        <v-sheet class="ma-1" rounded :elevation="4">
           <CatalogCard :data="item" />
         </v-sheet>
       </v-col>
@@ -63,5 +70,11 @@ watch(
   </v-container>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.slider {
+  @media(max-width: 959px) {
+    display: none;
+  }
+}
+</style>
   

@@ -6,7 +6,6 @@ export const AddressSchema = new mongoose.Schema(
     street: String,
     building: String,
     apartment: String,
-    index: Number,
   },
   {
     versionKey: false,

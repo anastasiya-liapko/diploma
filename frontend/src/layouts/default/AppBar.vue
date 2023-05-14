@@ -42,43 +42,49 @@ watch(
 </script>
 
 <template>
-  <v-app-bar class="bar" color="indigo-accent-4" app>
+  <v-app-bar :elevation="5" class="bar" color="white" app>
     <v-container>
       <v-row class="ml-0">
 
         <v-app-bar-title>
           <router-link :to="{ name: 'Catalog' }">
-            <v-img class="bar__logo" :width="100" :height="20" contain src="@/assets/logo_white.svg"></v-img>
-            <v-img class="bar__logo bar__logo_mobile" :width="20" :height="20" contain
-              src="@/assets/logo_mobile.svg"></v-img>
+            <v-img class="bar__logo" :width="150" :height="30" contain src="@/assets/logo.svg"></v-img>
+            <v-img class="bar__logo bar__logo_mobile" :width="30" :height="30" contain
+              src="@/assets/logo_mobile_color.svg"></v-img>
           </router-link>
         </v-app-bar-title>
 
         <div class="bar__search mx-auto">
-          <v-text-field v-model="searchValue" density="compact" variant="outlined" label="Искать"
+          <v-text-field v-model="searchValue" density="compact" variant="underlined" label="Поиск"
             append-inner-icon="mdi-magnify" single-line hide-details max-width="750" @click:append-inner="search"
             @keyup.enter="search" />
         </div>
 
         <div class="bar__actions">
           <v-btn icon @click="gotToCart">
-            <v-badge :content="cartStore.totalCount" color="error">
-              <v-icon>mdi-cart-outline</v-icon>
+            <v-badge :content="cartStore.totalCount" color="green" :model-value="!!cartStore.totalCount">
+              <v-icon color="indigo-accent-4" size="30">mdi-cart-outline</v-icon>
             </v-badge>
           </v-btn>
 
-          <v-btn id="menu-activator" icon @click="goToLK">
-            <v-icon>mdi-account-outline</v-icon>
+          <v-btn class="ml-sm-4" id="menu-activator" icon @click="goToLK">
+            <v-icon color="indigo-accent-4" size="30">mdi-account-outline</v-icon>
           </v-btn>
         </div>
 
-        <v-menu :disabled="!authStore.isAuthorized" activator="#menu-activator">
+        <v-menu :disabled="!authStore.isAuthorized" activator="#menu-activator" eager>
           <v-list>
-            <v-list-item value="lk" ripple append-icon="mdi-shopping-outline" :to="{ name: 'LK' }">
-              <v-list-item-title>мои заказы</v-list-item-title>
+            <v-list-item value="lk" ripple :to="{ name: 'LK' }">
+              <template v-slot:prepend>
+                <v-icon icon="mdi-shopping-outline"></v-icon>
+              </template>
+              <v-list-item-title>Мои заказы</v-list-item-title>
             </v-list-item>
-            <v-list-item value="logout" ripple append-icon="mdi-logout" @click="logout">
-              <v-list-item-title>выйти</v-list-item-title>
+            <v-list-item value="logout" ripple @click="logout">
+              <template v-slot:prepend>
+                <v-icon icon="mdi-logout"></v-icon>
+              </template>
+              <v-list-item-title>Выйти</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>

@@ -16,7 +16,4 @@ export class GetAddressResponseDto {
 
   @ApiProperty()
   apartment: string;
-
-  @ApiProperty()
-  index: number;
 }

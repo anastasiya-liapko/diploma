@@ -49,11 +49,11 @@ const isAddedToCart = computed<boolean>(() => {
 })
 
 const buttonText = computed<string>(() => {
-  return isAddedToCart.value ? "в корзине" : "в корзину"
+  return isAddedToCart.value ? "В корзине" : "В корзину"
 })
 
 const buttonColor = computed<string>(() => {
-  return isAddedToCart.value ? "success" : "indigo-accent-4"
+  return isAddedToCart.value ? "green" : "indigo-accent-4"
 })
 
 load();
@@ -63,7 +63,7 @@ load();
   <v-container fluid>
     <v-sheet v-if="isLoading" min-height="300" max-width="750" class="bg-grey-lighten-3 text-body-2 mx-auto"
       rounded="lg"></v-sheet>
-    <v-sheet v-else-if="data" border="lg opacity-12" class="text-body-2 mx-auto" max-width="750" rounded="lg">
+    <v-sheet v-else-if="data" :elevation="4" class="mt-2 mt-sm-7 text-body-2 mx-auto" max-width="750" rounded="lg">
       <v-container fluid>
         <v-row>
           <v-col cols="12" sm="4">
@@ -77,12 +77,12 @@ load();
             </p>
 
             <v-list lines="one" density="compact">
-              <v-list-item :title="`артикул: ${data.id}`"></v-list-item>
-              <v-list-item v-if="data.size" :title="`размер: ${data.size}`"></v-list-item>
-              <v-list-item v-if="data.weight" :title="`вес: ${data.weight}`"></v-list-item>
+              <v-list-item :title="`Артикул: ${data.id}`"></v-list-item>
+              <v-list-item v-if="data.size" :title="`Размер: ${data.size} мм.`"></v-list-item>
+              <v-list-item v-if="data.weight" :title="`Вес: ${data.weight} кг.`"></v-list-item>
               <v-list-item v-if="data.manufacturer.title"
-                :title="`производитель: ${data.manufacturer.title}`"></v-list-item>
-              <v-list-item :title="`стоимость: ${data.price} руб.`"></v-list-item>
+                :title="`Производитель: ${data.manufacturer.title}`"></v-list-item>
+              <v-list-item :title="`Стоимость: ${data.price} руб.`"></v-list-item>
             </v-list>
 
 

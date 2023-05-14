@@ -12,7 +12,4 @@ export class PutAddressRequestDto {
 
   @ApiProperty()
   apartment: string;
-
-  @ApiProperty()
-  index: number;
 }

@@ -6,7 +6,6 @@ export class Address {
   street: string;
   building: string;
   apartment: string;
-  index: number | null;
 
   constructor(dto?: IDtoAddress) {
     this._id = dto?._id || "";
@@ -14,11 +13,10 @@ export class Address {
     this.street = dto?.street || "";
     this.building = dto?.building || "";
     this.apartment = dto?.apartment || "";
-    this.index = dto?.index || null;
   }
 
   get isValid() {
-    return !!this.city && !!this.street && !!this.building && !!this.apartment && !!this.index
+    return !!this.city && !!this.street && !!this.building && !!this.apartment
   }
 
   get putValues() {
@@ -27,7 +25,6 @@ export class Address {
       street: this.street,
       building: this.building,
       apartment: this.apartment,
-      index: this.index,
     }
   }
 }

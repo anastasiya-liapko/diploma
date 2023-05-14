@@ -40,8 +40,8 @@ const submit = async (): Promise<void> => {
 <template>
   <v-dialog v-model="dialog" width="600">
     <v-card>
-      <v-card-title>
-        <span class="text-h6 text-sm-h5">Войти или зарегистрироваться</span>
+      <v-card-title class="pt-6">
+        <span class="text-h6 text-sm-h5" style="white-space: pre-wrap">Войти или зарегистрироваться</span>
       </v-card-title>
       <v-card-text>
         <v-row>
@@ -57,7 +57,8 @@ const submit = async (): Promise<void> => {
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="indigo-accent-4" variant="text" @click="dialog = false">
+        <v-btn class="text-none text-subtitle-1" color="indigo-accent-4" variant="outlined" ripple
+          @click="dialog = false">
           Отменить
         </v-btn>
         <v-btn class="text-none text-subtitle-1" color="indigo-accent-4" variant="flat" ripple :loading="isLoading"

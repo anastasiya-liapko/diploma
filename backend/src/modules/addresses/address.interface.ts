@@ -5,5 +5,4 @@ export interface Address extends Document {
   street: string;
   building: string;
   apartment: string;
-  index: number;
 }

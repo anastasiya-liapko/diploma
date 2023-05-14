@@ -35,11 +35,11 @@ const isAddedToCart = computed<boolean>(() => {
 })
 
 const buttonText = computed<string>(() => {
-  return isAddedToCart.value ? "в корзине" : "в корзину"
+  return isAddedToCart.value ? "В корзине" : "В корзину"
 })
 
 const buttonColor = computed<string>(() => {
-  return isAddedToCart.value ? "success" : "indigo-accent-4"
+  return isAddedToCart.value ? "green" : "indigo-accent-4"
 })
 </script>
 

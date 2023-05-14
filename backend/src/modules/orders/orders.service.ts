@@ -81,7 +81,13 @@ export class OrdersService {
     //   .setAttribute('href', `https://aliapko.ru/lk`);
     dom.window.document.querySelector('#order_id').innerHTML = ` №${order._id}`;
 
-    let goodsTemplate = ``;
+    let goodsTemplate = `
+      <tr>
+        <td class="goods__title">
+            Состав заказа
+        </td>
+      </tr>
+    `;
     order.goods.forEach((item) => {
       goodsTemplate += `
         <tr>
@@ -112,7 +118,7 @@ export class OrdersService {
     dom.window.document.querySelector('#goods').innerHTML = goodsTemplate;
 
     await this.mailerService.sendMail({
-      from: `"СтройДом" <host1858759@aliapko.ru>`,
+      from: `"Строй Дом – строительные материалы" <host1858759@aliapko.ru>`,
       to: order.user.email,
       subject: 'Мы получили ваш заказ',
       html: dom.serialize(),

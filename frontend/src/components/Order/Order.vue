@@ -37,7 +37,7 @@ const load = async (): Promise<void> => {
 load()
 
 const formatAddress = (address: Address): string => {
-  return `${address.city}, ${address.street}, ${address.building}/${address.apartment}, ${address.index}`
+  return `${address.city}, ${address.street}, ${address.building}/${address.apartment}`
 }
 
 const submit = async (): Promise<void> => {
@@ -66,12 +66,12 @@ const submit = async (): Promise<void> => {
 <template>
   <AddressModal v-model="isAddressModalVisible" @submit="userAddresses.push($event)" />
   <v-container v-if="!isLoading" class="order" fluid>
-    <h1 class="text-h5 text-sm-h4 text-md-h3 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">Оформление заказа</h1>
+    <h1 class="text-h5 text-sm-h4 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">Оформление заказа</h1>
     <v-radio-group v-model="pickedAddress" column>
       <v-row>
         <v-col cols="12">
-          <v-sheet class="ma-1 pa-4" rounded :elevation="2">
-            <h2>Самовывоз из магазина</h2>
+          <v-sheet class="ma-1 pa-4" rounded :elevation="4">
+            <h2 class="text-h6">Самовывоз из магазина</h2>
             <v-radio v-for="address in storeAddresses" :key="address._id" :label="formatAddress(address)"
               color="indigo-accent-4" :value="address._id"></v-radio>
           </v-sheet>
@@ -80,11 +80,11 @@ const submit = async (): Promise<void> => {
 
       <v-row>
         <v-col cols="12">
-          <v-sheet class="ma-1 pa-4" rounded :elevation="2">
-            <h2>Доставка курьером</h2>
+          <v-sheet class="ma-1 pa-4" rounded :elevation="4">
+            <h2 class="text-h6">Доставка курьером</h2>
             <v-radio v-for="address in userAddresses" :key="address._id" :label="formatAddress(address)"
               color="indigo-accent-4" :value="address._id"></v-radio>
-            <v-btn color="indigo-accent-4" class="text-none text-subtitle-1 mt-4" ripple size="default" variant="flat"
+            <v-btn color="indigo-accent-4" class="text-none text-subtitle-1 mt-4" ripple size="default" variant="outlined"
               @click.stop="isAddressModalVisible = true">
               Добавить адрес
             </v-btn>
@@ -95,7 +95,7 @@ const submit = async (): Promise<void> => {
 
     <v-row>
       <v-col cols="12" class="text-center">
-        <v-btn color="indigo-accent-4" class="text-none text-subtitle-1" ripple size="default" variant="flat"
+        <v-btn color="indigo-accent-4" class="text-none text-subtitle-1" ripple size="large" variant="flat"
           :loading="isOrderLoading" @click.stop="submit">
           Оформить заказ
         </v-btn>
