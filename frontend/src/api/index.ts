@@ -1,5 +1,6 @@
-import { Unauth } from '@/domain/Auth/Unauth';
+import useAuth from '@/composable/useAuth';
 import router from '@/router';
+import { useAuthStore } from '@/store/auth';
 import axios from 'axios';
 
 let baseURL = '/api';
@@ -20,9 +21,8 @@ const server = axios.create({
 // }
 
 const logout = async (): Promise<void> => {
-  await server.post(`/auth/logout`, new Unauth(localStorage.getItem('os_rt')))
-  localStorage.removeItem('os_at');
-  localStorage.removeItem('os_rt');
+  const { logout } = useAuth();
+  await logout();
   router.push({ name: "Catalog" })
 }
 
@@ -37,6 +37,7 @@ server.interceptors.request.use(async (request) => {
 });
 
 server.interceptors.response.use(null, async (error) => {
+  const authStore = useAuthStore();
   const originalRequest = error.response.config;
 
   if (error.response && error.response.status === 401) {
@@ -56,6 +57,7 @@ server.interceptors.response.use(null, async (error) => {
     //   throw error.response || error;
     // }
     await logout();
+    authStore.isAuthModalVisible = !authStore.isAuthModalVisible
     throw error.response || error;
   } else {
     throw error.response || error;
