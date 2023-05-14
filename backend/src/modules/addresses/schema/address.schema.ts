@@ -2,7 +2,6 @@ import * as mongoose from 'mongoose';
 
 export const AddressSchema = new mongoose.Schema(
   {
-    title: String,
     city: String,
     street: String,
     building: String,

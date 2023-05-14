@@ -8,7 +8,7 @@ const props = defineProps<{
 }>()
 
 const formatAddress = (address: Address): string => {
-  return `${address.title}: ${address.city}, ${address.street}, ${address.building}/${address.apartment}, ${address.index}`
+  return `${address.city}, ${address.street}, ${address.building}/${address.apartment}, ${address.index}`
 }
 
 // DD.MM.YYYY

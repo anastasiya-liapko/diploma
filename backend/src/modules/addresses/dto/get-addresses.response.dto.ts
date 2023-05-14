@@ -6,9 +6,6 @@ export class GetAddressResponseDto {
   _id: string;
 
   @ApiProperty()
-  title: string;
-
-  @ApiProperty()
   city: string;
 
   @ApiProperty()

@@ -2,9 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class PutAddressRequestDto {
   @ApiProperty()
-  title: string;
-
-  @ApiProperty()
   city: string;
 
   @ApiProperty()

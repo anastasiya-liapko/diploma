@@ -46,29 +46,24 @@ const submit = async (): Promise<void> => {
         <span class="text-h5">Добавить новый адрес</span>
       </v-card-title>
       <v-card-text>
-        <v-container>
-          <v-row dense>
-            <v-col cols="12">
-              <v-text-field v-model="data.title" label="Название адреса" required variant="outlined"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="data.city" label="Город" required variant="outlined"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="data.street" label="Улица" required variant="outlined"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="data.building" label="Дом" required variant="outlined"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="data.apartment" label="Квартира" required variant="outlined"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="data.index" label="Почтовый индекс" required type="number"
-                variant="outlined"></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
+        <v-row dense>
+          <v-col cols="12">
+            <v-text-field v-model="data.city" label="Город" required variant="outlined"></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field v-model="data.street" label="Улица" required variant="outlined"></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field v-model="data.building" label="Дом" required variant="outlined"></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field v-model="data.apartment" label="Квартира" required variant="outlined"></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field v-model="data.index" label="Почтовый индекс" required type="number"
+              variant="outlined"></v-text-field>
+          </v-col>
+        </v-row>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>

@@ -37,7 +37,7 @@ const load = async (): Promise<void> => {
 load()
 
 const formatAddress = (address: Address): string => {
-  return `${address.title}: ${address.city}, ${address.street}, ${address.building}/${address.apartment}, ${address.index}`
+  return `${address.city}, ${address.street}, ${address.building}/${address.apartment}, ${address.index}`
 }
 
 const submit = async (): Promise<void> => {

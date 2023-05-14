@@ -44,17 +44,15 @@ const submit = async (): Promise<void> => {
         <span class="text-h5">Войти или зарегистрироваться</span>
       </v-card-title>
       <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field v-model="data.email" label="Электронная почта" required variant="outlined"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="data.password" label="Пароль" type="password" required
-                variant="outlined"></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
+        <v-row>
+          <v-col cols="12">
+            <v-text-field v-model="data.email" label="Электронная почта" required variant="outlined"></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field v-model="data.password" label="Пароль" type="password" required
+              variant="outlined"></v-text-field>
+          </v-col>
+        </v-row>
         <small>Если вы не регистрировались ранее, придумайте логин и пароль для регистрации</small>
       </v-card-text>
       <v-card-actions>
