@@ -9,8 +9,10 @@ const { get, patch } = useCart();
 
 <template>
   <v-container class="cart" fluid>
-    <h1 v-if="cartStore.cart.goods.length && !cartStore.isLoading" class="text-h3 pb-6 pt-6">Корзина ({{
-      cartStore.totalCount }})</h1>
+    <h1 v-if="cartStore.cart.goods.length && !cartStore.isLoading"
+      class="text-h5 text-sm-h4 text-md-h3 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">
+      Корзина ({{
+        cartStore.totalCount }})</h1>
 
     <NotFound v-if="!cartStore.cart.goods.length && !cartStore.isLoading" icon="mdi-cart-outline"
       title="В корзине ничего нет" description="Добавьте товары в корзину" button-text="в каталог" />

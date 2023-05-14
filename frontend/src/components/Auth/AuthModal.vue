@@ -41,7 +41,7 @@ const submit = async (): Promise<void> => {
   <v-dialog v-model="dialog" width="600">
     <v-card>
       <v-card-title>
-        <span class="text-h5">Войти или зарегистрироваться</span>
+        <span class="text-h6 text-sm-h5">Войти или зарегистрироваться</span>
       </v-card-title>
       <v-card-text>
         <v-row>
@@ -53,7 +53,7 @@ const submit = async (): Promise<void> => {
               variant="outlined"></v-text-field>
           </v-col>
         </v-row>
-        <small>Если вы не регистрировались ранее, придумайте логин и пароль для регистрации</small>
+        <small class="caption">Если вы не регистрировались ранее, придумайте логин и пароль для регистрации</small>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>

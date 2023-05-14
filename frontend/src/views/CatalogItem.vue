@@ -11,11 +11,11 @@ defineProps<{
 const router = useRouter();
 const authStore = useAuthStore();
 
-watchEffect(() => {
-  if (!authStore.isAuthorized) {
-    router.push({ name: 'Catalog' })
-  }
-})
+// watchEffect(() => {
+//   if (!authStore.isAuthorized) {
+//     router.push({ name: 'Catalog' })
+//   }
+// })
 </script>
 
 <template>

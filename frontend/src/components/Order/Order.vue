@@ -66,7 +66,7 @@ const submit = async (): Promise<void> => {
 <template>
   <AddressModal v-model="isAddressModalVisible" @submit="userAddresses.push($event)" />
   <v-container v-if="!isLoading" class="order" fluid>
-    <h1 class="text-h3 pb-6 pt-6">Оформление заказа</h1>
+    <h1 class="text-h5 text-sm-h4 text-md-h3 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">Оформление заказа</h1>
     <v-radio-group v-model="pickedAddress" column>
       <v-row>
         <v-col cols="12">

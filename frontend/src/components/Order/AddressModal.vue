@@ -43,7 +43,7 @@ const submit = async (): Promise<void> => {
   <v-dialog v-model="dialog" width="600">
     <v-card>
       <v-card-title>
-        <span class="text-h5">Добавить новый адрес</span>
+        <span class="text-h6 text-sm-h5">Добавить новый адрес</span>
       </v-card-title>
       <v-card-text>
         <v-row dense>

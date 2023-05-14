@@ -66,35 +66,27 @@ load();
     <v-sheet v-else-if="data" border="lg opacity-12" class="text-body-2 mx-auto" max-width="750" rounded="lg">
       <v-container fluid>
         <v-row>
-          <v-col cols="4">
+          <v-col cols="12" sm="4">
             <v-img :src="data.imageLink" width="300px" contain></v-img>
           </v-col>
 
-          <v-col cols="8">
+          <v-col cols="12" sm="8">
             <h1 v-if="!isLoading && data" class="mx-auto text-h5 pb-6 pt-6">{{ data.title }}</h1>
             <p class="mb-4">
               {{ data.description }}
             </p>
 
-            <ul class="ps-4 mb-6">
-              <li>
-                id: {{ data.id }}
-              </li>
-              <li>
-                size: {{ data.size }}
-              </li>
-              <li>
-                weight: {{ data.weight }}
-              </li>
-              <li>
-                manufaturer: {{ data.manufacturer.title }}
-              </li>
-              <li>
-                price: {{ data.price }}
-              </li>
-            </ul>
+            <v-list lines="one" density="compact">
+              <v-list-item :title="`артикул: ${data.id}`"></v-list-item>
+              <v-list-item v-if="data.size" :title="`размер: ${data.size}`"></v-list-item>
+              <v-list-item v-if="data.weight" :title="`вес: ${data.weight}`"></v-list-item>
+              <v-list-item v-if="data.manufacturer.title"
+                :title="`производитель: ${data.manufacturer.title}`"></v-list-item>
+              <v-list-item :title="`стоимость: ${data.price} руб.`"></v-list-item>
+            </v-list>
 
-            <v-btn block class="text-none" :color="buttonColor" ripple size="default" variant="flat"
+
+            <v-btn block class="text-none mt-5" :color="buttonColor" ripple size="default" variant="flat"
               @click.stop="addToCart">
               {{ buttonText }}
             </v-btn>
