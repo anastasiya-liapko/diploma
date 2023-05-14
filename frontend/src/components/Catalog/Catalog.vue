@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { Pagination } from "@/infrastructure/Pagination/Pagination"
 import InfiniteScroll from "@/components/InfiniteScroll.vue"
 import { CatalogApi } from "@/api/CatalogApi"
@@ -49,11 +49,13 @@ watch(
 <template>
   <v-container class="catalog">
     <v-carousel v-if="!route.query.search" class="slider">
-      <v-carousel-item src="https://ir.ozone.ru/s3/cms/53/t4c/wc600/252x160_1.jpg" cover></v-carousel-item>
+      <v-carousel-item>
+        <v-img height="100%" src="@/assets/carousel-1.png" cover></v-img>
+      </v-carousel-item>
 
-      <v-carousel-item src="https://ir.ozone.ru/s3/cms/93/td3/wc600/252x160_2.jpgg" cover></v-carousel-item>
-
-      <v-carousel-item src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover></v-carousel-item>
+      <v-carousel-item>
+        <v-img height="100%" src="@/assets/carousel-2.png" cover></v-img>
+      </v-carousel-item>
     </v-carousel>
     <h1 class="text-h5 text-sm-h4 pb-2 pt-2 pb-sm-4 pt-sm-4 pb-md-6 pt-md-6">Каталог товаров</h1>
     <v-row dense>
