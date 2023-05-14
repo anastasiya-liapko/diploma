@@ -15,7 +15,7 @@ export class OrdersService {
     @InjectModel('Order') private readonly orderModel: Model<Order>,
     private cartService: CartService,
     private readonly mailerService: MailerService,
-  ) {}
+  ) { }
 
   public get = async (user: User): Promise<any> => {
     const res = await this.orderModel
@@ -76,10 +76,40 @@ export class OrdersService {
     // используем jsdom для работы с html (https://www.npmjs.com/package/jsdom)
     const dom = new JSDOM(file);
     // добавляем ссылку на чек в html
-    dom.window.document
-      .querySelector('#lk_link')
-      .setAttribute('href', `https://aliapko.ru/lk`);
+    // dom.window.document
+    //   .querySelector('#lk_link')
+    //   .setAttribute('href', `https://aliapko.ru/lk`);
     dom.window.document.querySelector('#order_id').innerHTML = ` №${order._id}`;
+
+    let goodsTemplate = ``;
+    order.goods.forEach((item) => {
+      goodsTemplate += `
+        <tr>
+          <td colspan="2" class="goods__paragraph">
+              ${item.good.title}
+          </td>
+        </tr>
+        <tr>
+          <td class="goods__paragraph goods__paragraph_bright">
+            ${item.count} x ${item.good.price}
+          </td>
+          <td class="goods__paragraph goods__paragraph_bright goods__paragraph_right">
+            ${Math.round(item.count * item.good.price)} руб.
+          </td>
+        </tr>
+      `;
+    });
+    goodsTemplate += `
+      <tr class="goods__total">
+        <td class="goods__paragraph goods__paragraph_bright">
+          Стоимость товаров
+        </td>
+        <td class="goods__paragraph goods__paragraph_bright goods__paragraph_right">
+          ${order.total_price} руб.
+        </td>
+      </tr>
+    `;
+    dom.window.document.querySelector('#goods').innerHTML = goodsTemplate;
 
     await this.mailerService.sendMail({
       from: `"СтройДом" <host1858759@aliapko.ru>`,

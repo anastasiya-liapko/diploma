@@ -119,6 +119,12 @@ export class CartService {
       //   );
       // }
       if (!data.length) {
+        const newCart = new this.cartModel({
+          user: new mongoose.Types.ObjectId(user._id),
+          goods: [],
+        });
+        await newCart.save();
+
         return {
           total_price: 0,
           goods: [],
