@@ -41,8 +41,9 @@ const formatAddress = (address: Address): string => {
 }
 
 const submit = async (): Promise<void> => {
+  isOrderLoading.value = true;
+  
   try {
-    isOrderLoading.value = true;
     const found = storeAddresses.value.find(item => item._id === pickedAddress.value);
     if (found) {
       deliveryType.value = EDeliveryType.PICKUP;

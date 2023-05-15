@@ -15,7 +15,7 @@ export class OrdersService {
     @InjectModel('Order') private readonly orderModel: Model<Order>,
     private cartService: CartService,
     private readonly mailerService: MailerService,
-  ) { }
+  ) {}
 
   public get = async (user: User): Promise<any> => {
     const res = await this.orderModel
@@ -57,7 +57,8 @@ export class OrdersService {
       const res = await newOrder.save();
       await this.cartService.delete(user);
       const response = await this.getById(user, res._id);
-      this.sendMail(response);
+      Logger.log(`POST ORDER -- SUCCESS: ${JSON.stringify(response)}`);
+      await this.sendMail(response);
       return response;
     } catch (err) {
       throw new BadRequestException(err.message);
@@ -117,7 +118,7 @@ export class OrdersService {
     `;
     dom.window.document.querySelector('#goods').innerHTML = goodsTemplate;
 
-    await this.mailerService.sendMail({
+    const response = await this.mailerService.sendMail({
       from: `"Строй Дом – строительные материалы" <host1858759@aliapko.ru>`,
       to: order.user.email,
       subject: 'Мы получили ваш заказ',
@@ -130,6 +131,9 @@ export class OrdersService {
         },
       ],
     });
+    Logger.log(
+      `NOTIFICATION ORDER SEND TO CLIENT EMAIL: ${JSON.stringify(response)}`,
+    );
     Logger.log(
       `NOTIFICATION ORDER SEND TO CLIENT EMAIL: ${JSON.stringify(
         order.user.email,

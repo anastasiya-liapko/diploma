@@ -51,7 +51,7 @@ import { StoreModule } from './modules/store/store.module';
       useFactory: () => ({
         transport: {
           host: 'mail.hostland.ru',
-          port: 465,
+          port: 25,
           auth: {
             user: 'host1858759@aliapko.ru',
             pass: 'BwbGWfAmnv',
@@ -81,4 +81,4 @@ import { StoreModule } from './modules/store/store.module';
   controllers: [AppController],
   providers: [AppService, JwtStrategy, WsStrategy],
 })
-export class AppModule { }
+export class AppModule {}
