@@ -42,7 +42,7 @@ import { StoreModule } from './modules/store/store.module';
     ConfigModule.forRoot(),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '11h' },
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../frontend/dist'),
@@ -62,21 +62,6 @@ import { StoreModule } from './modules/store/store.module';
         },
       }),
     }),
-    // MailerModule.forRootAsync({
-    //   useFactory: () => ({
-    //     transport: {
-    //       host: 'in-v3.mailjet.com',
-    //       port: 587,
-    //       auth: {
-    //         user: '150f4a921ceab7ef0004c3c62d841ed9',
-    //         pass: '3a820843cd4ede2ba27f92699ab7b99c',
-    //       },
-    //     },
-    //     defaults: {
-    //       from: 'anastasiya.liapko@gmail.com',
-    //     },
-    //   }),
-    // }),
   ],
   controllers: [AppController],
   providers: [AppService, JwtStrategy, WsStrategy],

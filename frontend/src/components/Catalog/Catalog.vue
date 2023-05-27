@@ -40,7 +40,6 @@ watch(
     isLoaded.value = false;
     list.value = [];
     pagination.value.page = 0;
-    load()
   },
   { deep: true }
 );

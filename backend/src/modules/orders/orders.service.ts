@@ -76,10 +76,6 @@ export class OrdersService {
     const file = fs.readFileSync('html/email.html', 'utf8');
     // используем jsdom для работы с html (https://www.npmjs.com/package/jsdom)
     const dom = new JSDOM(file);
-    // добавляем ссылку на чек в html
-    // dom.window.document
-    //   .querySelector('#lk_link')
-    //   .setAttribute('href', `https://aliapko.ru/lk`);
     dom.window.document.querySelector('#order_id').innerHTML = ` №${order._id}`;
 
     let goodsTemplate = `
